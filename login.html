@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BAMBOO - Connexion</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            margin: 0;
+        }
+
+        .login-container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 450px;
+            margin: 0 auto;
+        }
+
+        .login-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            width: 100%;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1;
+        }
+
+        .logo img {
+            height: 40px;
+            width: auto;
+        }
+
+        .logo h1 {
+            color: #4A9E04;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .language-selector {
+            background-color: #f8f9fa;
+            border: 1px solid #4A9E04;
+            border-radius: 8px;
+            padding: 8px 16px;
+            color: #333;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-left: auto;
+        }
+
+        .language-selector:hover {
+            background-color: #e8f5e8;
+            border-color: #4A9E04;
+        }
+
+        .new-account-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .new-account-section h2 {
+            color: #333;
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .btn-login {
+            background-color: #4A9E04;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 15px 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .btn-login-cnx {
+            background-color: #4A9E04;
+        }
+
+        .btn-button {
+            display: inline-block;
+        }
+
+        .xd-btn-login {
+            text-align: center;
+        }
+
+        .col-lg-12, .col-xl-12 {
+            width: 100%;
+        }
+
+        .ng-binding {
+            font-weight: 600;
+        }
+
+        .btn-login:hover {
+            background-color: #3a7d03;
+            transform: translateY(-2px);
+        }
+
+        .divider {
+            height: 1px;
+            background-color: #333;
+            margin: 30px 0;
+        }
+
+        .login-section h2 {
+            color: #333;
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .login-section p {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 30px;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 15px 50px 15px 50px;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 1rem;
+            background: white;
+            transition: all 0.3s ease;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: #4A9E04;
+            box-shadow: 0 0 0 2px rgba(74, 158, 4, 0.1);
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #333;
+            font-size: 1.2rem;
+        }
+
+        .visibility-toggle {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #1976d2;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
+        }
+
+        .visibility-toggle:hover {
+            color: #4A9E04;
+        }
+
+        .forgot-password {
+            color: #4A9E04;
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-bottom: 30px;
+            display: inline-block;
+            transition: color 0.3s ease;
+        }
+
+        .forgot-password:hover {
+            color: #3a7d03;
+            text-decoration: underline;
+        }
+
+        .login-btn {
+            background-color: #4A9E04;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 15px 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .login-btn:hover {
+            background-color: #3a7d03;
+            transform: translateY(-2px);
+        }
+
+        .footer {
+            background: transparent;
+            padding: 30px 0 0 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin-top: 40px;
+            width: 100%;
+            max-width: 450px;
+        }
+
+        .footer-text {
+            color: #333;
+            font-weight: 500;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            background-color: #4A9E04;
+            border: 2px solid white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .social-icon:hover {
+            background-color: #3a7d03;
+            transform: translateY(-2px);
+        }
+
+        .social-icon.facebook {
+            font-size: 1.2rem;
+        }
+
+        .social-icon.instagram {
+            font-size: 1.1rem;
+        }
+
+        .social-icon.linkedin {
+            font-size: 1rem;
+        }
+
+        .message {
+            margin: 15px 0;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 500;
+            display: none;
+        }
+
+        .message.error {
+            background-color: #ffebee;
+            color: #c62828;
+            border: 1px solid #ffcdd2;
+        }
+
+        .message.success {
+            background-color: #e8f5e8;
+            color: #2e7d32;
+            border: 1px solid #c8e6c9;
+        }
+
+        .loading-spinner {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-login:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .login-container {
+                padding: 30px 20px;
+                max-width: 100%;
+                border-radius: 16px;
+                margin: 0 auto;
+            }
+
+            .login-header {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .footer {
+                max-width: 100%;
+                margin-top: 30px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 20px 15px;
+                margin: 0 auto;
+            }
+
+            .logo h1 {
+                font-size: 1.5rem;
+            }
+
+            .new-account-section h2,
+            .login-section h2 {
+                font-size: 1.2rem;
+            }
+
+            .btn-login {
+                padding: 12px 20px;
+                font-size: 0.9rem;
+            }
+
+            .footer {
+                margin-top: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            <div class="logo">
+                <img src="images/logo.png" alt="Logo BAMBOO">
+                <button class="language-selector">FR</button>
+            </div>
+           
+        </div>
+
+        <div class="new-account-section">
+            <h2>Vous n'avez pas de compte ?</h2>
+            <button class="btn-login btn-login-cnx btn-button xd-btn-login col-lg-12 col-xl-12 ng-binding">Devenir client</button>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="login-section">
+            <h2>Ou connectez-vous</h2>
+            <p>pour accéder à votre compte</p>
+
+            <div class="input-group">
+                <i class="fas fa-user input-icon"></i>
+                <input type="email" id="email" class="input-field" placeholder="Votre identifiant" required>
+                <button class="visibility-toggle"><i class="fas fa-eye"></i></button>
+            </div>
+
+            <div class="input-group">
+                <i class="fas fa-key input-icon"></i>
+                <input type="password" id="password" class="input-field" placeholder="Votre mot de passe" required>
+                <button class="visibility-toggle"><i class="fas fa-eye-slash"></i></button>
+            </div>
+
+            <a href="#" class="forgot-password">Mot de passe oublié ?</a>
+
+            <div id="message" class="message"></div>
+
+            <button id="loginBtn" class="btn-login btn-login-cnx btn-button xd-btn-login col-lg-12 col-xl-12 ng-binding">
+                <span id="btnText">Connexion</span>
+                <span id="loadingSpinner" class="loading-spinner" style="display: none;">
+                    <i class="fas fa-spinner fa-spin"></i> Connexion...
+                </span>
+            </button>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <span class="footer-text">Rejoignez-nous</span>
+        <div class="social-icons">
+            <a href="https://opinri.alwaysdata.net/facebook" class="social-icon facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://opinri.alwaysdata.net/instagram" class="social-icon instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-icon linkedin"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+    </footer>
+
+    <script>
+        // Toggle password visibility
+        document.querySelectorAll('.visibility-toggle').forEach(toggle => {
+            toggle.addEventListener('click', function() {
+                const input = this.parentElement.querySelector('input');
+                const icon = this.querySelector('i');
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    icon.className = 'fas fa-eye';
+                } else {
+                    input.type = 'password';
+                    icon.className = 'fas fa-eye-slash';
+                }
+            });
+        });
+
+        // Language selector functionality
+        document.querySelector('.language-selector').addEventListener('click', function() {
+            // Toggle between FR and EN
+            this.textContent = this.textContent === 'FR' ? 'EN' : 'FR';
+        });
+
+        // Login functionality
+        document.getElementById('loginBtn').addEventListener('click', function() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const messageDiv = document.getElementById('message');
+            const btnText = document.getElementById('btnText');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+            const loginBtn = document.getElementById('loginBtn');
+            
+            // Masquer les messages précédents
+            messageDiv.style.display = 'none';
+            messageDiv.className = 'message';
+            
+            // Vérification des identifiants
+            if (email === 'bamboo@gmail.com' && password === '12345678') {
+                // Afficher le spinner de chargement
+                btnText.style.display = 'none';
+                loadingSpinner.style.display = 'flex';
+                loginBtn.disabled = true;
+                
+                // Simuler un temps de chargement de 1.5 secondes
+                setTimeout(() => {
+                    // Marquer que l'utilisateur s'est connecté
+                    sessionStorage.setItem('userLoggedIn', 'true');
+                    sessionStorage.setItem('userAuthenticated', 'true');
+                    // Redirection vers la page d'accueil
+                    window.location.href = 'index.html';
+                }, 1500);
+            } else {
+                // Affichage d'un message d'erreur sur la page
+                messageDiv.textContent = 'Identifiants incorrects. Veuillez vérifier votre email et mot de passe.';
+                messageDiv.className = 'message error';
+                messageDiv.style.display = 'block';
+            }
+        });
+
+        // Permettre la connexion avec la touche Entrée
+        document.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('loginBtn').click();
+            }
+        });
+    </script>
+</body>
+</html>

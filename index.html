@@ -1,0 +1,2318 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BAMBOO - Page d'accueil</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -300px;
+            width: 300px;
+            height: 100vh;
+            background: white;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+            transition: left 0.3s ease;
+            z-index: 1001;
+            overflow-y: auto;
+        }
+
+        .sidebar.open {
+            left: 0 !important;
+        }
+
+        .sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo img {
+            width: 40px;
+            height: 40px;
+        }
+
+        .logo h1 {
+            color: #4A9E04;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .close-sidebar {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #666;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .sidebar-nav ul {
+            list-style: none;
+            padding: 1rem 0;
+        }
+
+        .sidebar-nav li {
+            margin: 0.5rem 0;
+        }
+
+        .sidebar-nav a {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            color: #333;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-nav a:hover,
+        .sidebar-nav li.active a {
+            background: #4A9E04;
+            color: white;
+        }
+
+        .sidebar-nav i {
+            width: 20px;
+            text-align: center;
+        }
+
+        /* Overlay */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            display: none;
+        }
+
+        .overlay.show {
+            display: block;
+        }
+
+        /* Header */
+        .mobile-header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+            position: relative;
+        }
+
+        .menu-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: #4A9E04;
+            border: none;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 15px rgba(74, 158, 4, 0.3);
+            z-index: 1002;
+            transition: all 0.3s ease;
+        }
+
+        .menu-btn:hover {
+            background: #3a7d03;
+            transform: scale(1.1);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            background: #4A9E04;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .user-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user-name {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .user-account {
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .header-actions {
+            position: absolute;
+            right: 1rem;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .action-btn {
+            background: none;
+            border: none;
+            padding: 0.5rem;
+            cursor: pointer;
+            color: #666;
+            font-size: 1rem;
+        }
+
+        .action-btn.logout {
+            color: #dc3545;
+        }
+
+        /* Section Solde */
+        .balance-section {
+            padding: 2rem 1rem;
+        }
+
+        .balance-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            margin: 0 auto;
+            max-width: 400px;
+        }
+
+        .account-navigation {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .nav-arrow {
+            background: #4A9E04;
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-arrow:hover {
+            background: #3a7d03;
+            transform: scale(1.1);
+        }
+
+        .nav-arrow:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .account-info {
+            text-align: center;
+            flex: 1;
+            margin: 0 1rem;
+        }
+
+        .account-type {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 0.2rem;
+        }
+
+        .account-number {
+            font-size: 0.8rem;
+            color: #999;
+        }
+
+
+
+        .balance-display {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            flex-direction: row;
+        }
+
+        .toggle-balance-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #666;
+            font-size: 1.2rem;
+            padding: 0.5rem;
+        }
+
+        .balance-hidden, .balance-visible {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .balance-hidden {
+            letter-spacing: 0.1em;
+        }
+
+        /* Section Contenu Dynamique */
+        .content-section {
+            padding: 2rem 1rem;
+        }
+
+        .content-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .content-panel {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            display: none;
+        }
+
+        .content-panel.active {
+            display: block;
+        }
+
+        .content-panel h2 {
+            color: #4A9E04;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .content-panel p {
+            color: #666;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .welcome-message {
+            padding: 2rem 0;
+        }
+
+        .welcome-message h2 {
+            color: #4A9E04;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .welcome-message p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        /* Diagramme circulaire */
+        .chart-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 2rem 0;
+            padding: 2rem;
+        }
+
+        .pie-chart {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: conic-gradient(
+                #4A9E04 0deg 120deg,
+                #3a7d03 120deg 180deg,
+                #2e7d32 180deg 240deg,
+                #1b5e20 240deg 360deg
+            );
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 25px rgba(74, 158, 4, 0.3);
+        }
+
+        .pie-chart::before {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .chart-center {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            color: #4A9E04;
+            font-weight: 600;
+        }
+
+        .chart-center .total-amount {
+            font-size: 1.2rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .chart-center .total-label {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+
+        .chart-legend {
+            margin-left: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 3px;
+        }
+
+        .legend-text {
+            font-size: 0.9rem;
+            color: #333;
+        }
+
+        .legend-amount {
+            font-weight: 600;
+            color: #4A9E04;
+        }
+
+        /* Section Cartes */
+        .cards-section {
+            margin: 2rem 0;
+        }
+
+        .cards-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .cards-header h3 {
+            color: #4A9E04;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .add-card-btn {
+            background: #f0f0f0;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #4A9E04;
+        }
+
+        .no-card-message {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .no-card-message p {
+            color: #666;
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+        }
+
+        .add-card-button {
+            background: #4A9E04;
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .add-card-button:hover {
+            background: #3a7d03;
+        }
+
+        /* Liste des comptes */
+        .accounts-list {
+            margin-top: 2rem;
+        }
+
+        .account-item {
+            display: flex;
+            align-items: center;
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .account-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .account-icon {
+            width: 50px;
+            height: 50px;
+            background: #4A9E04;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            margin-right: 1rem;
+        }
+
+        .account-details {
+            flex: 1;
+        }
+
+        .account-details h4 {
+            color: #333;
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .account-details p {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .account-balance {
+            color: #4A9E04;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .account-status {
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .account-status.active {
+            background: #e8f5e8;
+            color: #4A9E04;
+        }
+
+        /* Liste des transactions */
+        .transactions-list {
+            margin-top: 2rem;
+        }
+
+        .transaction-item {
+            display: flex;
+            align-items: center;
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .transaction-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .transaction-icon {
+            width: 50px;
+            height: 50px;
+            background: #f8f9fa;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            margin-right: 1rem;
+        }
+
+        .transaction-details {
+            flex: 1;
+        }
+
+        .transaction-details h4 {
+            color: #333;
+            font-size: 1rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .transaction-details p {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .transaction-date {
+            color: #999;
+            font-size: 0.8rem;
+        }
+
+        .transaction-amount {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .transaction-amount.positive {
+            color: #28a745;
+        }
+
+        .transaction-amount.negative {
+            color: #dc3545;
+        }
+
+        .text-success { color: #28a745; }
+        .text-danger { color: #dc3545; }
+        .text-warning { color: #ffc107; }
+        .text-info { color: #17a2b8; }
+
+        /* Section Crédits */
+        .credits-list {
+            margin-top: 2rem;
+        }
+
+        .credit-item {
+            display: flex;
+            align-items: center;
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .credit-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .credit-icon {
+            width: 50px;
+            height: 50px;
+            background: #4A9E04;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            margin-right: 1rem;
+        }
+
+        .credit-details {
+            flex: 1;
+        }
+
+        .credit-details h4 {
+            color: #333;
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .credit-details p {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .credit-amount {
+            color: #4A9E04;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .credit-btn {
+            background: #4A9E04;
+            color: white;
+            border: none;
+            padding: 0.6rem 1.5rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .credit-btn:hover {
+            background: #3a7d03;
+        }
+
+        /* Section Avance sur salaire */
+        .salary-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .salary-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .salary-icon {
+            width: 60px;
+            height: 60px;
+            background: #4A9E04;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            margin: 0 auto 1rem;
+        }
+
+        .salary-details h4 {
+            color: #333;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .salary-details p {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .salary-amount, .salary-rate, .salary-duration {
+            color: #4A9E04;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .salary-request {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 2rem;
+        }
+
+        .salary-request h3 {
+            color: #4A9E04;
+            margin-bottom: 1.5rem;
+        }
+
+        .request-form {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group input, .form-group select {
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .request-btn {
+            background: #4A9E04;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .request-btn:hover {
+            background: #3a7d03;
+        }
+
+        /* Section Historique */
+        .history-filters {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .filter-group label {
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .filter-group select {
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .history-list {
+            margin-top: 2rem;
+        }
+
+        .history-item {
+            display: flex;
+            align-items: center;
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .history-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .history-date {
+            background: #4A9E04;
+            color: white;
+            border-radius: 8px;
+            padding: 0.8rem;
+            text-align: center;
+            margin-right: 1rem;
+            min-width: 60px;
+        }
+
+        .history-date .day {
+            display: block;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .history-date .month {
+            display: block;
+            font-size: 0.8rem;
+            opacity: 0.9;
+        }
+
+        .history-details {
+            flex: 1;
+        }
+
+        .history-details h4 {
+            color: #333;
+            font-size: 1rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .history-details p {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .history-time {
+            color: #999;
+            font-size: 0.8rem;
+        }
+
+        .history-amount {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        /* Section Service client */
+        .support-options {
+            margin: 2rem 0;
+        }
+
+        .support-item {
+            display: flex;
+            align-items: center;
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .support-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .support-item:hover .support-icon {
+            transform: scale(1.05);
+            box-shadow: 0 3px 12px rgba(74, 158, 4, 0.3);
+        }
+
+        .support-icon {
+            width: 50px;
+            height: 50px;
+            background: #4A9E04;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            margin-right: 1rem;
+            box-shadow: 0 2px 8px rgba(74, 158, 4, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .support-details {
+            flex: 1;
+        }
+
+        .support-details h4 {
+            color: #333;
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .support-details p {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .support-info {
+            color: #4A9E04;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .support-btn {
+            background: #4A9E04;
+            color: white;
+            border: none;
+            padding: 0.6rem 1.5rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .support-btn:hover {
+            background: #3a7d03;
+        }
+
+        .faq-section {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 2rem;
+        }
+
+        .faq-section h3 {
+            color: #4A9E04;
+            margin-bottom: 1.5rem;
+        }
+
+        .faq-item {
+            padding: 1rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+
+        .faq-item h4 {
+            color: #333;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .faq-item p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Diagramme circulaire SVG */
+        .pie-chart-svg {
+            display: flex;
+            justify-content: center;
+            margin: 2rem 0;
+        }
+
+        .chart-segment {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .chart-segment:hover {
+            filter: brightness(1.1);
+            transform-origin: 150px 150px;
+            transform: scale(1.05);
+        }
+
+        .chart-center-amount {
+            font-size: 1.4rem;
+            font-weight: 700;
+            fill: #4A9E04;
+        }
+
+        .chart-center-label {
+            font-size: 1rem;
+            font-weight: 600;
+            fill: #4A9E04;
+        }
+
+        .chart-center-title {
+            font-size: 0.8rem;
+            font-weight: 500;
+            fill: #666;
+        }
+
+        .legend-percentage {
+            font-size: 0.8rem;
+            color: #4A9E04;
+            font-weight: 600;
+        }
+
+        /* Section Notifications */
+        .notifications-list {
+            margin: 2rem 0;
+        }
+
+        .notification-item {
+            display: flex;
+            align-items: center;
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .notification-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .notification-item.unread {
+            border-left: 4px solid #4A9E04;
+            background: #f8fff8;
+        }
+
+        .notification-icon {
+            width: 50px;
+            height: 50px;
+            background: #4A9E04;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+
+        .notification-details {
+            flex: 1;
+        }
+
+        .notification-details h4 {
+            color: #333;
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+            font-weight: 600;
+        }
+
+        .notification-details p {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 0.3rem;
+            line-height: 1.4;
+        }
+
+        .notification-time {
+            color: #999;
+            font-size: 0.8rem;
+        }
+
+        .notification-status {
+            margin-left: 1rem;
+        }
+
+        .unread-dot {
+            width: 12px;
+            height: 12px;
+            background: #4A9E04;
+            border-radius: 50%;
+            display: block;
+        }
+
+        .read-dot {
+            width: 12px;
+            height: 12px;
+            background: #ddd;
+            border-radius: 50%;
+            display: block;
+        }
+
+        .notification-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .action-btn {
+            background: #4A9E04;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .action-btn:hover {
+            background: #3a7d03;
+            transform: translateY(-2px);
+        }
+
+        .action-btn.clear-read {
+            background: #dc3545;
+        }
+
+        .action-btn.clear-read:hover {
+            background: #c82333;
+        }
+
+
+        /* Footer */
+        footer {
+            background: white;
+            padding: 2rem 0;
+            text-align: center;
+            color: #666;
+            border-top: 1px solid #eee;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .menu-btn {
+                top: 15px;
+                left: 15px;
+                width: 45px;
+                height: 45px;
+                font-size: 1rem;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .header-actions {
+                position: static;
+                justify-content: center;
+            }
+
+            .account-navigation {
+                margin-bottom: 1.5rem;
+            }
+
+            .nav-arrow {
+                width: 35px;
+                height: 35px;
+                font-size: 1rem;
+            }
+
+            .account-info {
+                margin: 0 0.5rem;
+            }
+
+            .account-type {
+                font-size: 0.8rem;
+            }
+
+            .account-number {
+                font-size: 0.7rem;
+            }
+
+            .balance-display {
+                flex-direction: row;
+                gap: 0.5rem;
+            }
+
+            .balance-hidden, .balance-visible {
+                font-size: 1.5rem;
+            }
+
+
+            .chart-container {
+                flex-direction: column;
+                margin: 1rem 0;
+                padding: 1rem;
+            }
+
+            .pie-chart {
+                width: 150px;
+                height: 150px;
+            }
+
+            .pie-chart::before {
+                width: 60px;
+                height: 60px;
+            }
+
+            .chart-center .total-amount {
+                font-size: 1rem;
+            }
+
+            .chart-center .total-label {
+                font-size: 0.7rem;
+            }
+
+            .chart-legend {
+                margin-left: 0;
+                margin-top: 1rem;
+                gap: 0.8rem;
+            }
+
+            .legend-item {
+                gap: 0.6rem;
+            }
+
+            .legend-color {
+                width: 16px;
+                height: 16px;
+            }
+
+            .legend-text {
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div id="sidebar" class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <img src="images/logo.png" alt="Logo BAMBOO">
+                <h1>BAMBOO</h1>
+            </div>
+            <button id="closeSidebar" class="close-sidebar">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <nav class="sidebar-nav">
+            <ul>
+                <li class="active">
+                    <a href="#dashboard">
+                        <i class="fas fa-home"></i>
+                        <span>Tableau de bord</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#accounts">
+                        <i class="fas fa-wallet"></i>
+                        <span>Comptes</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#transactions">
+                        <i class="fas fa-exchange-alt"></i>
+                        <span>Transactions</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#credits">
+                        <i class="fas fa-credit-card"></i>
+                        <span>Crédits</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#salary">
+                        <i class="fas fa-money-bill-wave"></i>
+                        <span>Avance sur salaire</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#history">
+                        <i class="fas fa-history"></i>
+                        <span>Historique</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#support">
+                        <i class="fas fa-users"></i>
+                        <span>Service client</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#settings">
+                        <i class="fas fa-cog"></i>
+                        <span>Configuration</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Overlay -->
+    <div id="overlay" class="overlay"></div>
+
+    <!-- Menu Hamburger Flottant -->
+    <button id="menuBtn" class="menu-btn">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Header -->
+    <header class="mobile-header">
+        <div class="header-content">
+            <div class="user-info">
+                <div class="user-avatar">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+                <div class="user-details">
+                    <span class="user-name">EYENG ASSOUMOU</span>
+                    <span class="user-account">CLIENT</span>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button id="notificationBtn" class="action-btn">
+                    <i class="fas fa-bell"></i>
+                </button>
+                <button class="action-btn">
+                    <span>FR</span>
+                </button>
+                <button class="action-btn">
+                    <i class="fas fa-question"></i>
+                </button>
+                <button id="logoutBtn" class="action-btn logout">
+                    <i class="fas fa-power-off"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Section Solde -->
+        <section class="balance-section">
+            <div class="balance-card">
+                <!-- Navigation entre comptes -->
+                <div class="account-navigation">
+                    <button id="prevAccount" class="nav-arrow">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <div class="account-info">
+                        <div id="accountType" class="account-type">COMPTE ÉPARGNE</div>
+                        <div id="accountNumber" class="account-number">N° 00325890101</div>
+                    </div>
+                    <button id="nextAccount" class="nav-arrow">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+                
+
+                
+                <!-- Affichage du solde -->
+                <div class="balance-display">
+                    <span id="balanceText" class="balance-hidden">••••••••</span>
+                    <span id="balanceValue" class="balance-visible" style="display: none;">1 250 000 XAF</span>
+                    <button id="toggleBalance" class="toggle-balance-btn">
+                        <i class="fas fa-eye" id="balanceIcon"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Contenu Dynamique -->
+        <section class="content-section">
+            <div class="content-container">
+                <div id="dashboardContent" class="content-panel active">
+                    <div class="welcome-message">
+                        <h2>Bienvenue Madame EYENG ASSOUMOU</h2>
+                        <p>Votre tableau de bord personnel</p>
+                    </div>
+                    
+                    <!-- Diagramme circulaire SVG -->
+                    <div class="chart-container">
+                        <div class="pie-chart-svg">
+                            <svg width="300" height="300" viewBox="0 0 300 300">
+                                <!-- Compte Épargne - 84.7% -->
+                                <path d="M 150 150 L 150 50 A 100 100 0 1 1 100.8 199.2 Z" 
+                                      fill="#4A9E04" 
+                                      class="chart-segment"
+                                      data-amount="1 990 000 XAF"
+                                      data-label="Compte Épargne">
+                                </path>
+                                
+                                <!-- Intérêts Épargne - 8.1% -->
+                                <path d="M 150 150 L 100.8 199.2 A 100 100 0 0 1 100.8 100.8 Z" 
+                                      fill="#3a7d03" 
+                                      class="chart-segment"
+                                      data-amount="198 000 XAF"
+                                      data-label="Intérêts Épargne">
+                                </path>
+                                
+                                <!-- Intérêts à venir - 7.2% -->
+                                <path d="M 150 150 L 100.8 100.8 A 100 100 0 0 1 150 50 Z" 
+                                      fill="#2e7d32" 
+                                      class="chart-segment"
+                                      data-amount="160 000 XAF"
+                                      data-label="Intérêts à venir">
+                                </path>
+                                
+                                <!-- Cercle central -->
+                                <circle cx="150" cy="150" r="60" fill="white" stroke="#4A9E04" stroke-width="2"/>
+                                
+                                <!-- Texte central -->
+                                <text x="150" y="145" text-anchor="middle" class="chart-center-amount">2 348 000</text>
+                                <text x="150" y="160" text-anchor="middle" class="chart-center-label">XAF</text>
+                                <text x="150" y="175" text-anchor="middle" class="chart-center-title">Total Patrimoine</text>
+                            </svg>
+                        </div>
+                        
+                        <div class="chart-legend">
+                            <div class="legend-item">
+                                <div class="legend-color" style="background: #4A9E04;"></div>
+                                <div class="legend-text">
+                                    <div>Compte Épargne</div>
+                                    <div class="legend-amount">1 990 000 XAF</div>
+                                    <div class="legend-percentage">84.7%</div>
+                                </div>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-color" style="background: #3a7d03;"></div>
+                                <div class="legend-text">
+                                    <div>Intérêts Épargne</div>
+                                    <div class="legend-amount">198 000 XAF</div>
+                                    <div class="legend-percentage">8.1%</div>
+                                </div>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-color" style="background: #2e7d32;"></div>
+                                <div class="legend-text">
+                                    <div>Intérêts à venir</div>
+                                    <div class="legend-amount">160 000 XAF</div>
+                                    <div class="legend-percentage">7.2%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="accountsContent" class="content-panel">
+                    <h2>Mes Comptes</h2>
+                    <p>Gérez vos comptes bancaires</p>
+                    
+                    <!-- Section Cartes -->
+                    <div class="cards-section">
+                        <div class="cards-header">
+                            <h3>Cartes</h3>
+                            <button class="add-card-btn">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                        <div class="no-card-message">
+                            <p>Vous n'avez pas encore de carte</p>
+                            <button class="add-card-button">Ajouter</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Liste des comptes -->
+                    <div class="accounts-list">
+                        <div class="account-item">
+                            <div class="account-icon">
+                                <i class="fas fa-university"></i>
+                            </div>
+                            <div class="account-details">
+                                <h4>Compte Épargne</h4>
+                                <p>N° 00325890101</p>
+                                <span class="account-balance">1 990 000 XAF</span>
+                            </div>
+                            <div class="account-status active">Actif</div>
+                        </div>
+                        
+                        <div class="account-item">
+                            <div class="account-icon">
+                                <i class="fas fa-piggy-bank"></i>
+                            </div>
+                            <div class="account-details">
+                                <h4>Intérêts Acquis</h4>
+                                <p>N° 00325890101</p>
+                                <span class="account-balance">198 000 XAF</span>
+                            </div>
+                            <div class="account-status active">Actif</div>
+                        </div>
+                        
+              
+                    </div>
+                </div>
+                
+                <div id="transactionsContent" class="content-panel">
+                    <h2>Transactions</h2>
+                    <p>Effectuer des virements et transferts</p>
+                    
+                    <!-- Transactions récentes -->
+                    <div class="transactions-list">
+                        <div class="transaction-item">
+                            <div class="transaction-icon">
+                                <i class="fas fa-arrow-up text-success"></i>
+                            </div>
+                            <div class="transaction-details">
+                                <h4>Virement reçu</h4>
+                                <p>De: MARTIN KOUAME</p>
+                                <span class="transaction-date">15 Jan 2024</span>
+                            </div>
+                            <div class="transaction-amount positive">+ 150 000 XAF</div>
+                        </div>
+                        
+                        <div class="transaction-item">
+                            <div class="transaction-icon">
+                                <i class="fas fa-arrow-down text-danger"></i>
+                            </div>
+                            <div class="transaction-details">
+                                <h4>Retrait GAB</h4>
+                                <p>GAB Libreville Centre</p>G
+                                <span class="transaction-date">14 Jan 2024</span>
+                            </div>
+                            <div class="transaction-amount negative">- 50 000 XAF</div>
+                        </div>
+                        
+                        <div class="transaction-item">
+                            <div class="transaction-icon">
+                                <i class="fas fa-credit-card text-warning"></i>
+                            </div>
+                            <div class="transaction-details">
+                                <h4>Paiement carte</h4>
+                                <p>SUPERMARCHÉ CARREFOUR</p>
+                                <span class="transaction-date">13 Jan 2024</span>
+                            </div>
+                            <div class="transaction-amount negative">- 25 000 XAF</div>
+                        </div>
+                        
+                        <div class="transaction-item">
+                            <div class="transaction-icon">
+                                <i class="fas fa-mobile-alt text-info"></i>
+                            </div>
+                            <div class="transaction-details">
+                                <h4>Recharge mobile</h4>
+                                <p>Libreville Telecom</p>
+                                <span class="transaction-date">12 Jan 2024</span>
+                            </div>
+                            <div class="transaction-amount negative">- 5 000 XAF</div>
+                        </div>
+                        
+                        <div class="transaction-item">
+                            <div class="transaction-icon">
+                                <i class="fas fa-arrow-up text-success"></i>
+                            </div>
+                            <div class="transaction-details">
+                                <h4>Virement reçu</h4>
+                                <p>De: SOCIÉTÉ ABC SARL</p>
+                                <span class="transaction-date">10 Jan 2024</span>
+                            </div>
+                            <div class="transaction-amount positive">+ 500 000 XAF</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="creditsContent" class="content-panel">
+                    <h2>Crédits</h2>
+                    <p>Demander un crédit</p>
+                    
+                    <!-- Crédits disponibles -->
+                    <div class="credits-list">
+                        <div class="credit-item">
+                            <div class="credit-icon">
+                                <i class="fas fa-home"></i>
+                            </div>
+                            <div class="credit-details">
+                                <h4>Crédit Immobilier</h4>
+                                <p>Financement d'achat immobilier</p>
+                                <span class="credit-amount">Jusqu'à 50 000 000 XAF</span>
+                            </div>
+                            <button class="credit-btn">Demander</button>
+                        </div>
+                        
+                        <div class="credit-item">
+                            <div class="credit-icon">
+                                <i class="fas fa-car"></i>
+                            </div>
+                            <div class="credit-details">
+                                <h4>Crédit Automobile</h4>
+                                <p>Financement d'achat de véhicule</p>
+                                <span class="credit-amount">Jusqu'à 15 000 000 XAF</span>
+                            </div>
+                            <button class="credit-btn">Demander</button>
+                        </div>
+                        
+                        <div class="credit-item">
+                            <div class="credit-icon">
+                                <i class="fas fa-briefcase"></i>
+                            </div>
+                            <div class="credit-details">
+                                <h4>Crédit Professionnel</h4>
+                                <p>Financement d'activité professionnelle</p>
+                                <span class="credit-amount">Jusqu'à 25 000 000 XAF</span>
+                            </div>
+                            <button class="credit-btn">Demander</button>
+                        </div>
+                        
+                        <div class="credit-item">
+                            <div class="credit-icon">
+                                <i class="fas fa-shopping-cart"></i>
+                            </div>
+                            <div class="credit-details">
+                                <h4>Crédit Consommation</h4>
+                                <p>Financement de biens de consommation</p>
+                                <span class="credit-amount">Jusqu'à 5 000 000 XAF</span>
+                            </div>
+                            <button class="credit-btn">Demander</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="salaryContent" class="content-panel">
+                    <h2>Avance sur salaire</h2>
+                    <p>Demander une avance sur salaire</p>
+                    
+                    <!-- Informations avance sur salaire -->
+                    <div class="salary-info">
+                        <div class="salary-card">
+                            <div class="salary-icon">
+                                <i class="fas fa-money-bill-wave"></i>
+                            </div>
+                            <div class="salary-details">
+                                <h4>Montant disponible</h4>
+                                <p>Basé sur votre salaire mensuel</p>
+                                <span class="salary-amount">1 500 000 XAF</span>
+                            </div>
+                        </div>
+                        
+                        <div class="salary-card">
+                            <div class="salary-icon">
+                                <i class="fas fa-percentage"></i>
+                            </div>
+                            <div class="salary-details">
+                                <h4>Taux d'intérêt</h4>
+                                <p>Taux préférentiel pour les salariés</p>
+                                <span class="salary-rate">2.5% / mois</span>
+                            </div>
+                        </div>
+                        
+                        <div class="salary-card">
+                            <div class="salary-icon">
+                                <i class="fas fa-calendar-alt"></i>
+                            </div>
+                            <div class="salary-details">
+                                <h4>Durée de remboursement</h4>
+                                <p>Flexible selon vos besoins</p>
+                                <span class="salary-duration">1 à 12 mois</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="salary-request">
+                        <h3>Demander une avance</h3>
+                        <div class="request-form">
+                            <div class="form-group">
+                                <label>Montant souhaité</label>
+                                <input type="number" placeholder="Ex: 500 000" max="1500000">
+                            </div>
+                            <div class="form-group">
+                                <label>Durée de remboursement</label>
+                                <select>
+                                    <option>1 mois</option>
+                                    <option>3 mois</option>
+                                    <option>6 mois</option>
+                                    <option>12 mois</option>
+                                </select>
+                            </div>
+                            <button class="request-btn">Demander l'avance</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="historyContent" class="content-panel">
+                    <h2>Historique</h2>
+                    <p>Consulter vos opérations</p>
+                    
+                    <!-- Filtres d'historique -->
+                    <div class="history-filters">
+                        <div class="filter-group">
+                            <label>Période</label>
+                            <select>
+                                <option>7 derniers jours</option>
+                                <option>30 derniers jours</option>
+                                <option>3 derniers mois</option>
+                                <option>6 derniers mois</option>
+                                <option>1 an</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label>Type d'opération</label>
+                            <select>
+                                <option>Toutes les opérations</option>
+                                <option>Virements</option>
+                                <option>Retraits</option>
+                                <option>Paiements</option>
+                                <option>Dépôts</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <!-- Historique détaillé -->
+                    <div class="history-list">
+                        <div class="history-item">
+                            <div class="history-date">
+                                <span class="day">15</span>
+                                <span class="month">Jan</span>
+                            </div>
+                            <div class="history-details">
+                                <h4>Virement reçu</h4>
+                                <p>De: MARTIN KOUAME</p>
+                                <span class="history-time">14:30</span>
+                            </div>
+                            <div class="history-amount positive">+ 150 000 XAF</div>
+                        </div>
+                        
+                        <div class="history-item">
+                            <div class="history-date">
+                                <span class="day">14</span>
+                                <span class="month">Jan</span>
+                            </div>
+                            <div class="history-details">
+                                <h4>Retrait GAB</h4>
+                                <p>GAB Libreville Centre</p>
+                                <span class="history-time">09:15</span>
+                            </div>
+                            <div class="history-amount negative">- 50 000 XAF</div>
+                        </div>
+                        
+                        <div class="history-item">
+                            <div class="history-date">
+                                <span class="day">13</span>
+                                <span class="month">Jan</span>
+                            </div>
+                            <div class="history-details">
+                                <h4>Paiement carte</h4>
+                                <p>SUPERMARCHÉ CARREFOUR</p>
+                                <span class="history-time">16:45</span>
+                            </div>
+                            <div class="history-amount negative">- 25 000 XAF</div>
+                        </div>
+                        
+                        <div class="history-item">
+                            <div class="history-date">
+                                <span class="day">12</span>
+                                <span class="month">Jan</span>
+                            </div>
+                            <div class="history-details">
+                                <h4>Recharge mobile</h4>
+                                <p>Libreville Telecom</p>
+                                <span class="history-time">11:20</span>
+                            </div>
+                            <div class="history-amount negative">- 5 000 XAF</div>
+                        </div>
+                        
+                        <div class="history-item">
+                            <div class="history-date">
+                                <span class="day">10</span>
+                                <span class="month">Jan</span>
+                            </div>
+                            <div class="history-details">
+                                <h4>Virement reçu</h4>
+                                <p>De: SOCIÉTÉ ABC SARL</p>
+                                <span class="history-time">08:00</span>
+                            </div>
+                            <div class="history-amount positive">+ 500 000 XAF</div>
+                        </div>
+                        
+                        <div class="history-item">
+                            <div class="history-date">
+                                <span class="day">08</span>
+                                <span class="month">Jan</span>
+                            </div>
+                            <div class="history-details">
+                                <h4>Dépôt espèces</h4>
+                                <p>Agence Libreville Centre</p>
+                                <span class="history-time">15:30</span>
+                            </div>
+                            <div class="history-amount positive">+ 200 000 XAF</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="supportContent" class="content-panel">
+                    <h2>Service client</h2>
+                    <p>Contacter notre équipe</p>
+                    
+                    <!-- Options de contact -->
+                    <div class="support-options">
+                        <div class="support-item">
+                            <div class="support-icon">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <div class="support-details">
+                                <h4>Appel téléphonique</h4>
+                                <p>Service client 24h/24</p>
+                                <span class="support-info">+241 01 23 45 67</span>
+                            </div>
+                            <button class="support-btn">Appeler</button>
+                        </div>
+                        
+                        <div class="support-item">
+                            <div class="support-icon">
+                                <i class="fas fa-paper-plane"></i>
+                            </div>
+                            <div class="support-details">
+                                <h4>Email</h4>
+                                <p>Réponse sous 24h</p>
+                                <span class="support-info">support@bamboo.ga</span>
+                            </div>
+                            <button class="support-btn">Écrire</button>
+                        </div>
+                        
+                        <div class="support-item">
+                            <div class="support-icon">
+                                <i class="fas fa-comment-dots"></i>
+                            </div>
+                            <div class="support-details">
+                                <h4>Chat en ligne</h4>
+                                <p>Disponible 8h-18h</p>
+                                <span class="support-info">Lun-Ven</span>
+                            </div>
+                            <button class="support-btn">Chatter</button>
+                        </div>
+                        
+                        <div class="support-item">
+                            <div class="support-icon">
+                                <i class="fas fa-building"></i>
+                            </div>
+                            <div class="support-details">
+                                <h4>Agences</h4>
+                                <p>Réseau national</p>
+                                <span class="support-info">15 agences au Gabon</span>
+                            </div>
+                            <button class="support-btn">Localiser</button>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ -->
+                    <div class="faq-section">
+                        <h3>Questions fréquentes</h3>
+                        <div class="faq-list">
+                            <div class="faq-item">
+                                <h4>Comment changer mon mot de passe ?</h4>
+                                <p>Allez dans Configuration > Sécurité > Changer le mot de passe</p>
+                            </div>
+                            <div class="faq-item">
+                                <h4>Comment faire un virement ?</h4>
+                                <p>Accédez à Transactions > Nouveau virement et suivez les étapes</p>
+                            </div>
+                            <div class="faq-item">
+                                <h4>Quels sont les frais de retrait ?</h4>
+                                <p>Les retraits dans nos GAB sont gratuits, 500 XAF dans les autres réseaux</p>
+                            </div>
+                            <div class="faq-item">
+                                <h4>Comment bloquer ma carte ?</h4>
+                                <p>Appelez le service client ou utilisez l'option dans l'application</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="settingsContent" class="content-panel">
+                    <h2>Configuration</h2>
+                    <p>Paramètres de votre compte</p>
+                </div>
+                
+                <div id="notificationsContent" class="content-panel">
+                    <h2>Notifications</h2>
+                    <p>Vos alertes et notifications</p>
+                    
+                    <!-- Liste des notifications -->
+                    <div class="notifications-list">
+                        <div class="notification-item unread">
+                            <div class="notification-icon">
+                                <i class="fas fa-money-bill-wave"></i>
+                            </div>
+                            <div class="notification-details">
+                                <h4>Virement reçu</h4>
+                                <p>Vous avez reçu un virement de 150 000 XAF de MARTIN KOUAME</p>
+                                <span class="notification-time">Il y a 2 heures</span>
+                            </div>
+                            <div class="notification-status">
+                                <span class="unread-dot"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="notification-item unread">
+                            <div class="notification-icon">
+                                <i class="fas fa-percentage"></i>
+                            </div>
+                            <div class="notification-details">
+                                <h4>Intérêts calculés</h4>
+                                <p>Vos intérêts d'épargne de ce mois ont été calculés : +12 500 XAF</p>
+                                <span class="notification-time">Il y a 1 jour</span>
+                            </div>
+                            <div class="notification-status">
+                                <span class="unread-dot"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="notification-item">
+                            <div class="notification-icon">
+                                <i class="fas fa-credit-card"></i>
+                            </div>
+                            <div class="notification-details">
+                                <h4>Paiement carte</h4>
+                                <p>Paiement de 25 000 XAF effectué chez SUPERMARCHÉ CARREFOUR</p>
+                                <span class="notification-time">Il y a 2 jours</span>
+                            </div>
+                            <div class="notification-status">
+                                <span class="read-dot"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="notification-item">
+                            <div class="notification-icon">
+                                <i class="fas fa-bell"></i>
+                            </div>
+                            <div class="notification-details">
+                                <h4>Rappel épargne</h4>
+                                <p>N'oubliez pas de faire votre dépôt mensuel pour maximiser vos intérêts</p>
+                                <span class="notification-time">Il y a 3 jours</span>
+                            </div>
+                            <div class="notification-status">
+                                <span class="read-dot"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="notification-item">
+                            <div class="notification-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <div class="notification-details">
+                                <h4>Sécurité</h4>
+                                <p>Connexion détectée depuis un nouvel appareil. Si ce n'était pas vous, contactez-nous.</p>
+                                <span class="notification-time">Il y a 5 jours</span>
+                            </div>
+                            <div class="notification-status">
+                                <span class="read-dot"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="notification-item">
+                            <div class="notification-icon">
+                                <i class="fas fa-gift"></i>
+                            </div>
+                            <div class="notification-details">
+                                <h4>Offre spéciale</h4>
+                                <p>Profitez de notre offre crédit immobilier à taux préférentiel jusqu'au 31 mars</p>
+                                <span class="notification-time">Il y a 1 semaine</span>
+                            </div>
+                            <div class="notification-status">
+                                <span class="read-dot"></span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Actions sur les notifications -->
+                    <div class="notification-actions">
+                        <button class="action-btn mark-all-read">Marquer tout comme lu</button>
+                        <button class="action-btn clear-read">Supprimer les lues</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 BAMBOO. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Données des comptes
+        const accounts = [
+            {
+                type: 'COMPTE ÉPARGNE',
+                number: 'N° 00325890101',
+                balance: '1 990 000 XAF',
+                interest: 'Intérêt 198 000 XAF'
+            },
+            {
+                type: 'INTÉRÊTS ACQUIS',
+                number: 'N° 00325890101',
+                balance: '198 000 XAF',
+                interest: 'Intérêt à venir 160 000 XAF'
+            }
+        ];
+
+        let currentAccountIndex = 0;
+
+        // Fonction pour mettre à jour l'affichage du compte
+        function updateAccountDisplay() {
+            const account = accounts[currentAccountIndex];
+            document.getElementById('accountType').textContent = account.type;
+            document.getElementById('accountNumber').textContent = account.number;
+            document.getElementById('balanceValue').textContent = account.balance;
+            
+            // Mettre à jour l'état des boutons de navigation
+            const prevBtn = document.getElementById('prevAccount');
+            const nextBtn = document.getElementById('nextAccount');
+            
+            prevBtn.disabled = currentAccountIndex === 0;
+            nextBtn.disabled = currentAccountIndex === accounts.length - 1;
+        }
+
+        // Fonction pour mettre à jour le diagramme circulaire
+        function updatePieChart() {
+            const savingsBalance = 1990000; // Compte Épargne
+            const savingsInterest = 198000; // Intérêts Épargne
+            const futureInterest = 160000; // Intérêts à venir
+            
+            const total = savingsBalance + savingsInterest + futureInterest;
+            
+            // Mettre à jour le total dans le centre du diagramme
+            const centerAmount = document.querySelector('.chart-center-amount');
+            if (centerAmount) {
+                centerAmount.textContent = total.toLocaleString();
+            }
+        }
+
+        // Initialisation de toutes les fonctionnalités
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Initialisation de l\'application...');
+            
+            // Vérification de l'authentification
+            if (!sessionStorage.getItem('userAuthenticated')) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // Initialiser l'affichage du compte
+            updateAccountDisplay();
+            
+            // Initialiser le diagramme circulaire
+            updatePieChart();
+
+            // Initialisation de la sidebar
+            const menuBtn = document.getElementById('menuBtn');
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            const closeSidebar = document.getElementById('closeSidebar');
+
+            console.log('Elements trouvés:', { menuBtn, sidebar, overlay, closeSidebar });
+
+            if (menuBtn) {
+                menuBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    console.log('Menu cliqué');
+                    if (sidebar) {
+                        sidebar.classList.add('open');
+                        console.log('Sidebar ouverte');
+                    }
+                    if (overlay) {
+                        overlay.classList.add('show');
+                        console.log('Overlay affiché');
+                    }
+                });
+            }
+
+            if (closeSidebar) {
+                closeSidebar.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    console.log('Fermeture sidebar');
+                    if (sidebar) {
+                        sidebar.classList.remove('open');
+                    }
+                    if (overlay) {
+                        overlay.classList.remove('show');
+                    }
+                });
+            }
+
+            if (overlay) {
+                overlay.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    console.log('Clic overlay');
+                    if (sidebar) {
+                        sidebar.classList.remove('open');
+                    }
+                    if (overlay) {
+                        overlay.classList.remove('show');
+                    }
+                });
+            }
+
+            // Fonctionnalité d'affichage/masquage du solde
+            const toggleBtn = document.getElementById('toggleBalance');
+            if (toggleBtn) {
+                toggleBtn.addEventListener('click', function() {
+                    const balanceText = document.getElementById('balanceText');
+                    const balanceValue = document.getElementById('balanceValue');
+                    const balanceIcon = document.getElementById('balanceIcon');
+                    
+                    if (balanceText && balanceValue && balanceIcon) {
+                        if (balanceText.style.display !== 'none') {
+                            // Afficher le solde
+                            balanceText.style.display = 'none';
+                            balanceValue.style.display = 'block';
+                            balanceIcon.className = 'fas fa-eye-slash';
+                        } else {
+                            // Masquer le solde
+                            balanceText.style.display = 'block';
+                            balanceValue.style.display = 'none';
+                            balanceIcon.className = 'fas fa-eye';
+                        }
+                    }
+                });
+            }
+
+            // Navigation dans la sidebar
+            const sidebarLinks = document.querySelectorAll('.sidebar-nav a');
+            const contentPanels = document.querySelectorAll('.content-panel');
+            const sidebarItems = document.querySelectorAll('.sidebar-nav li');
+
+            console.log('Liens sidebar trouvés:', sidebarLinks.length);
+            console.log('Panneaux de contenu trouvés:', contentPanels.length);
+
+            sidebarLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    console.log('Lien sidebar cliqué:', this.getAttribute('href'));
+                    
+                    // Retirer la classe active de tous les éléments
+                    sidebarItems.forEach(item => item.classList.remove('active'));
+                    contentPanels.forEach(panel => panel.classList.remove('active'));
+                    
+                    // Ajouter la classe active à l'élément cliqué
+                    this.parentElement.classList.add('active');
+                    
+                    // Afficher le contenu correspondant
+                    const href = this.getAttribute('href');
+                    const targetPanel = document.getElementById(href.substring(1) + 'Content');
+                    
+                    if (targetPanel) {
+                        targetPanel.classList.add('active');
+                        console.log('Panneau affiché:', targetPanel.id);
+                    }
+                    
+                    // Fermer la sidebar
+                    if (sidebar) sidebar.classList.remove('open');
+                    if (overlay) overlay.classList.remove('show');
+                });
+            });
+
+            // Navigation entre comptes
+            const prevBtn = document.getElementById('prevAccount');
+            const nextBtn = document.getElementById('nextAccount');
+            
+            console.log('Boutons de navigation trouvés:', { prevBtn, nextBtn });
+            console.log('Nombre de comptes:', accounts.length);
+            console.log('Éléments DOM chargés:', document.readyState);
+            
+            if (prevBtn) {
+                prevBtn.addEventListener('click', function() {
+                    console.log('Bouton précédent cliqué, index actuel:', currentAccountIndex);
+                    if (currentAccountIndex > 0) {
+                        currentAccountIndex--;
+                        updateAccountDisplay();
+                        console.log('Compte précédent:', accounts[currentAccountIndex].type);
+                    }
+                });
+            }
+            
+            if (nextBtn) {
+                nextBtn.addEventListener('click', function() {
+                    console.log('Bouton suivant cliqué, index actuel:', currentAccountIndex);
+                    if (currentAccountIndex < accounts.length - 1) {
+                        currentAccountIndex++;
+                        updateAccountDisplay();
+                        console.log('Compte suivant:', accounts[currentAccountIndex].type);
+                    }
+                });
+            }
+
+            // Fonctionnalité de déconnexion
+            const logoutBtn = document.getElementById('logoutBtn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    console.log('Déconnexion...');
+                    sessionStorage.removeItem('userLoggedIn');
+                    sessionStorage.removeItem('userAuthenticated');
+                    window.location.href = 'login.html';
+                });
+            }
+
+            // Gestion de l'icône de notification dans le header
+            const notificationBtn = document.getElementById('notificationBtn');
+
+            if (notificationBtn) {
+                notificationBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    console.log('Icône notification cliquée');
+                    
+                    // Retirer la classe active de tous les éléments
+                    sidebarItems.forEach(item => item.classList.remove('active'));
+                    contentPanels.forEach(panel => panel.classList.remove('active'));
+                    
+                    // Afficher le panneau des notifications
+                    const notificationsPanel = document.getElementById('notificationsContent');
+                    if (notificationsPanel) {
+                        notificationsPanel.classList.add('active');
+                        console.log('Panneau notifications affiché');
+                    }
+                });
+            }
+
+            // Gestion des notifications
+            const notificationItems = document.querySelectorAll('.notification-item');
+            const markAllReadBtn = document.querySelector('.mark-all-read');
+            const clearReadBtn = document.querySelector('.clear-read');
+
+            // Marquer une notification comme lue
+            notificationItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    if (this.classList.contains('unread')) {
+                        this.classList.remove('unread');
+                        const unreadDot = this.querySelector('.unread-dot');
+                        if (unreadDot) {
+                            unreadDot.className = 'read-dot';
+                        }
+                    }
+                });
+            });
+
+            // Marquer toutes les notifications comme lues
+            if (markAllReadBtn) {
+                markAllReadBtn.addEventListener('click', function() {
+                    notificationItems.forEach(item => {
+                        item.classList.remove('unread');
+                        const unreadDot = item.querySelector('.unread-dot');
+                        if (unreadDot) {
+                            unreadDot.className = 'read-dot';
+                        }
+                    });
+                });
+            }
+
+            // Supprimer les notifications lues
+            if (clearReadBtn) {
+                clearReadBtn.addEventListener('click', function() {
+                    notificationItems.forEach(item => {
+                        if (!item.classList.contains('unread')) {
+                            item.style.opacity = '0';
+                            setTimeout(() => {
+                                item.remove();
+                            }, 300);
+                        }
+                    });
+                });
+            }
+            
+            console.log('Application initialisée avec succès!');
+        });
+    </script>
+</body>
+</html>
