@@ -3002,19 +3002,19 @@
             
             try {
                 const comptes = await bambooDB.obtenirComptes();
-                // Filtrer seulement les 3 comptes de patrimoine d'EYENG
-                const comptesPatrimoine = comptes.filter(compte => 
-                    compte.utilisateur === 'EYENG ASSOUMOU' && 
-                    (compte.type === 'epargne' || compte.type === 'interets' || compte.type === 'interets_futurs')
+                // Filtrer tous les comptes d'EYENG
+                const comptesEyeng = comptes.filter(compte => 
+                    compte.utilisateur === 'EYENG ASSOUMOU'
                 );
                 
                 let contenu = '';
 
-                if (comptesPatrimoine.length === 0) {
-                    contenu = '<p>Aucun compte de patrimoine à modifier</p>';
+                if (comptesEyeng.length === 0) {
+                    contenu = '<p>Aucun compte à modifier</p>';
                 } else {
-                    comptesPatrimoine.forEach(compte => {
-                        const typeDisplay = compte.type === 'epargne' ? 'Compte Épargne' : 
+                    comptesEyeng.forEach(compte => {
+                        const typeDisplay = compte.type === 'courant' ? 'Compte Courant' :
+                                          compte.type === 'epargne' ? 'Compte Épargne' : 
                                           compte.type === 'interets' ? 'Intérêts Épargne' : 
                                           'Intérêts à venir';
                                           
