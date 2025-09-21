@@ -2955,19 +2955,19 @@
             
             try {
                 const comptes = await bambooDB.obtenirComptes();
-                // Filtrer seulement les 3 comptes de patrimoine d'EYENG
-                const comptesPatrimoine = comptes.filter(compte => 
-                    compte.utilisateur === 'EYENG ASSOUMOU' && 
-                    (compte.type === 'epargne' || compte.type === 'interets' || compte.type === 'interets_futurs')
+                // Filtrer tous les comptes d'EYENG
+                const comptesEyeng = comptes.filter(compte => 
+                    compte.utilisateur === 'EYENG ASSOUMOU'
                 );
                 
                 let contenu = '';
                 
-                if (comptesPatrimoine.length === 0) {
-                    contenu = '<p style="text-align: center; color: #666;">Aucun compte de patrimoine trouvé</p>';
+                if (comptesEyeng.length === 0) {
+                    contenu = '<p style="text-align: center; color: #666;">Aucun compte trouvé</p>';
                 } else {
-                    comptesPatrimoine.forEach(compte => {
-                        const typeDisplay = compte.type === 'epargne' ? 'Compte Épargne' : 
+                    comptesEyeng.forEach(compte => {
+                        const typeDisplay = compte.type === 'courant' ? 'Compte Courant' :
+                                          compte.type === 'epargne' ? 'Compte Épargne' : 
                                           compte.type === 'interets' ? 'Intérêts Épargne' : 
                                           'Intérêts à venir';
                                           
@@ -2984,7 +2984,7 @@
                     });
                 }
                 
-                adminAfficherDonnees(`Comptes de Patrimoine (${comptesPatrimoine.length})`, contenu);
+                adminAfficherDonnees(`Tous les Comptes (${comptesEyeng.length})`, contenu);
             } catch (error) {
                 console.error('Erreur récupération comptes:', error);
                 showNotification('Erreur récupération comptes', 'error');
