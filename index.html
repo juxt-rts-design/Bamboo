@@ -1178,6 +1178,195 @@
             background: #c82333;
         }
 
+        /* Section Administration */
+        .admin-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            background: #4A9E04;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .stat-details h3 {
+            color: #333;
+            font-size: 0.9rem;
+            margin-bottom: 0.3rem;
+            font-weight: 600;
+        }
+
+        .stat-number {
+            color: #4A9E04;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .admin-actions {
+            margin-top: 2rem;
+        }
+
+        .admin-section {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .admin-section h3 {
+            color: #4A9E04;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .admin-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .admin-btn {
+            background: #4A9E04;
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+
+        .admin-btn:hover {
+            background: #3a7d03;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(74, 158, 4, 0.3);
+        }
+
+        .admin-btn i {
+            font-size: 1rem;
+        }
+
+        .admin-data-display {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            margin-top: 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .admin-data-display h3 {
+            color: #4A9E04;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .data-item {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-left: 4px solid #4A9E04;
+        }
+
+        .data-item h4 {
+            color: #333;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .data-item p {
+            color: #666;
+            margin-bottom: 0.3rem;
+            font-size: 0.9rem;
+        }
+
+        .data-item .data-value {
+            color: #4A9E04;
+            font-weight: 600;
+        }
+
+        .admin-form {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .admin-form h4 {
+            color: #4A9E04;
+            margin-bottom: 1rem;
+        }
+
+        .admin-form-group {
+            margin-bottom: 1rem;
+        }
+
+        .admin-form-group label {
+            display: block;
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .admin-form-group input,
+        .admin-form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .admin-form-group input:focus,
+        .admin-form-group select:focus {
+            outline: none;
+            border-color: #4A9E04;
+            box-shadow: 0 0 0 2px rgba(74, 158, 4, 0.2);
+        }
+
+        .admin-form-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .admin-form-buttons .admin-btn {
+            flex: 1;
+        }
 
         /* Footer */
         footer {
@@ -1348,6 +1537,12 @@
                         <span>Configuration</span>
                     </a>
                 </li>
+                <li>
+                    <a href="#admin">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Administration</span>
+                    </a>
+                </li>
             </ul>
         </nav>
     </div>
@@ -1471,7 +1666,7 @@
                             <div class="legend-item">
                                 <div class="legend-color" style="background: #4A9E04;"></div>
                                 <div class="legend-text">
-                                    <div>Compte Épargne</div>
+                                    <div>Comptes (Courant + Épargne)</div>
                                     <div class="legend-amount">1 990 000 XAF</div>
                                     <div class="legend-percentage">84.7%</div>
                                 </div>
@@ -2020,6 +2215,114 @@
                         <button class="action-btn clear-read">Supprimer les lues</button>
                     </div>
                 </div>
+                
+                <div id="adminContent" class="content-panel">
+                    <h2>Administration</h2>
+                    <p>Interface d'administration du système</p>
+                    
+                    <!-- Statistiques dynamiques -->
+                    <div class="admin-stats">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="stat-details">
+                                <h3>Utilisateurs</h3>
+                                <span class="stat-number" id="adminUsersCount">-</span>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-wallet"></i>
+                            </div>
+                            <div class="stat-details">
+                                <h3>Comptes</h3>
+                                <span class="stat-number" id="adminAccountsCount">-</span>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-exchange-alt"></i>
+                            </div>
+                            <div class="stat-details">
+                                <h3>Transactions</h3>
+                                <span class="stat-number" id="adminTransactionsCount">-</span>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div class="stat-details">
+                                <h3>Volume Total</h3>
+                                <span class="stat-number" id="adminTotalVolume">-</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Actions d'administration -->
+                    <div class="admin-actions">
+                        <div class="admin-section">
+                            <h3>Gestion des Comptes</h3>
+                            <div class="admin-buttons">
+                                <button class="admin-btn" onclick="adminVoirComptes()">
+                                    <i class="fas fa-list"></i>
+                                    Voir tous les comptes
+                                </button>
+                                <button class="admin-btn" onclick="adminModifierCompte()">
+                                    <i class="fas fa-edit"></i>
+                                    Modifier un compte
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="admin-section">
+                            <h3>Gestion des Transactions</h3>
+                            <div class="admin-buttons">
+                                <button class="admin-btn" onclick="adminVoirTransactions()">
+                                    <i class="fas fa-list"></i>
+                                    Voir toutes les transactions
+                                </button>
+                                <button class="admin-btn" onclick="adminAjouterTransaction()">
+                                    <i class="fas fa-plus"></i>
+                                    Ajouter une transaction
+                                </button>
+                                <button class="admin-btn" onclick="adminModifierTransaction()">
+                                    <i class="fas fa-edit"></i>
+                                    Modifier une transaction
+                                </button>
+                            </div>
+                        </div>
+                        
+                        
+                        <div class="admin-section">
+                            <h3>Paramètres Système</h3>
+                            <div class="admin-buttons">
+                                <button class="admin-btn" onclick="adminViderBase()">
+                                    <i class="fas fa-database"></i>
+                                    Vider la base de données
+                                </button>
+                                <button class="admin-btn" onclick="adminForcerReinit()" style="background: #dc3545;">
+                                    <i class="fas fa-refresh"></i>
+                                    Forcer réinitialisation
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Zone d'affichage des données -->
+                    <div id="adminDataDisplay" class="admin-data-display" style="display: none;">
+                        <h3 id="adminDataTitle">Données</h3>
+                        <div id="adminDataContent"></div>
+                        <button class="admin-btn" onclick="adminFermerAffichage()" style="margin-top: 1rem;">
+                            <i class="fas fa-times"></i>
+                            Fermer
+                        </button>
+                    </div>
+                </div>
             </div>
         </section>
     </main>
@@ -2030,289 +2333,1212 @@
         </div>
     </footer>
 
-    <script>
-        // Données des comptes
-        const accounts = [
-            {
-                type: 'COMPTE ÉPARGNE',
-                number: 'N° 00325890101',
-                balance: '1 990 000 XAF',
-                interest: 'Intérêt 198 000 XAF'
-            },
-            {
-                type: 'INTÉRÊTS ACQUIS',
-                number: 'N° 00325890101',
-                balance: '198 000 XAF',
-                interest: 'Intérêt à venir 160 000 XAF'
-            }
-        ];
-
+    <script src="database.js"></script>
+<script>// JavaScript BAMBOO - Version Complète avec Administration Avancée
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('🚀 Initialisation BAMBOO...');
+        
+        // ============================================
+        // 1. VARIABLES GLOBALES
+        // ============================================
+        let bambooDB = null;
         let currentAccountIndex = 0;
-
-        // Fonction pour mettre à jour l'affichage du compte
-        function updateAccountDisplay() {
-            const account = accounts[currentAccountIndex];
-            document.getElementById('accountType').textContent = account.type;
-            document.getElementById('accountNumber').textContent = account.number;
-            document.getElementById('balanceValue').textContent = account.balance;
+        
+        // Comptes chargés dynamiquement depuis IndexedDB
+        let accounts = [];
+    
+        // ============================================
+        // 2. FONCTIONS UTILITAIRES
+        // ============================================
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${type === 'error' ? '#dc3545' : type === 'success' ? '#28a745' : '#4A9E04'};
+                color: white;
+                padding: 15px 20px;
+                border-radius: 8px;
+                z-index: 10000;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+                font-family: inherit;
+                max-width: 300px;
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
             
-            // Mettre à jour l'état des boutons de navigation
+            setTimeout(() => notification.remove(), 3000);
+        }
+    
+        function updateAccountDisplay() {
+            if (accounts.length === 0) {
+                console.log('⏳ Aucun compte chargé, réessai dans 1s...');
+                setTimeout(updateAccountDisplay, 1000);
+                return;
+            }
+            
+            const account = accounts[currentAccountIndex];
+            const accountType = document.getElementById('accountType');
+            const accountNumber = document.getElementById('accountNumber');
+            const balanceValue = document.getElementById('balanceValue');
             const prevBtn = document.getElementById('prevAccount');
             const nextBtn = document.getElementById('nextAccount');
             
-            prevBtn.disabled = currentAccountIndex === 0;
-            nextBtn.disabled = currentAccountIndex === accounts.length - 1;
+            if (accountType) accountType.textContent = account.type;
+            if (accountNumber) accountNumber.textContent = account.number;
+            if (balanceValue) balanceValue.textContent = account.balance;
+            
+            if (prevBtn) prevBtn.disabled = currentAccountIndex === 0;
+            if (nextBtn) nextBtn.disabled = currentAccountIndex >= accounts.length - 1;
+            
+            console.log('💰 Affichage compte mis à jour:', account);
         }
-
-        // Fonction pour mettre à jour le diagramme circulaire
-        function updatePieChart() {
-            const savingsBalance = 1990000; // Compte Épargne
-            const savingsInterest = 198000; // Intérêts Épargne
-            const futureInterest = 160000; // Intérêts à venir
-            
-            const total = savingsBalance + savingsInterest + futureInterest;
-            
-            // Mettre à jour le total dans le centre du diagramme
-            const centerAmount = document.querySelector('.chart-center-amount');
-            if (centerAmount) {
-                centerAmount.textContent = total.toLocaleString();
+    
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('fr-FR').format(amount) + ' FCFA';
+        }
+    
+        function formatDate(date) {
+            return new Date(date).toLocaleDateString('fr-FR');
+        }
+    
+        function generateReference() {
+            return 'TXN' + Date.now().toString(36).toUpperCase();
+        }
+    
+        // ============================================
+        // 3. GESTION DU MENU
+        // ============================================
+        const menuBtn = document.getElementById('menuBtn');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+        const closeSidebar = document.getElementById('closeSidebar');
+    
+        function openMenu() {
+            if (sidebar) sidebar.classList.add('open');
+            if (overlay) overlay.classList.add('show');
+            console.log('✅ Menu ouvert');
+        }
+    
+        function closeMenu() {
+            if (sidebar) sidebar.classList.remove('open');
+            if (overlay) overlay.classList.remove('show');
+            console.log('✅ Menu fermé');
+        }
+    
+        // Événements menu
+        if (menuBtn) {
+            menuBtn.onclick = function(e) {
+                e.preventDefault();
+                openMenu();
+            };
+        }
+    
+        if (closeSidebar) {
+            closeSidebar.onclick = function(e) {
+                e.preventDefault();
+                closeMenu();
+            };
+        }
+    
+        if (overlay) {
+            overlay.onclick = function(e) {
+                e.preventDefault();
+                closeMenu();
+            };
+        }
+    
+        // ============================================
+        // 4. NAVIGATION SIDEBAR
+        // ============================================
+        const sidebarLinks = document.querySelectorAll('.sidebar-nav a');
+        const contentPanels = document.querySelectorAll('.content-panel');
+        const sidebarItems = document.querySelectorAll('.sidebar-nav li');
+    
+        sidebarLinks.forEach(function(link) {
+            link.onclick = function(e) {
+                e.preventDefault();
+                
+                const href = this.getAttribute('href');
+                console.log('📍 Navigation vers:', href);
+                
+                // Retirer classe active
+                sidebarItems.forEach(item => item.classList.remove('active'));
+                contentPanels.forEach(panel => panel.classList.remove('active'));
+                
+                // Ajouter classe active
+                this.parentElement.classList.add('active');
+                
+                // Afficher contenu
+                const targetId = href.substring(1) + 'Content';
+                const targetPanel = document.getElementById(targetId);
+                if (targetPanel) {
+                    targetPanel.classList.add('active');
+                    console.log('✅ Panneau affiché:', targetId);
+                    
+                    // Actualiser stats si admin
+                    if (targetId === 'adminContent') {
+                        setTimeout(adminActualiserStats, 100);
+                    }
+                }
+                
+                closeMenu();
+            };
+        });
+    
+        // ============================================
+        // 5. TOGGLE SOLDE
+        // ============================================
+        const toggleBtn = document.getElementById('toggleBalance');
+        if (toggleBtn) {
+            toggleBtn.onclick = function(e) {
+                e.preventDefault();
+                
+                const balanceText = document.getElementById('balanceText');
+                const balanceValue = document.getElementById('balanceValue');
+                const balanceIcon = document.getElementById('balanceIcon');
+                
+                if (balanceText && balanceValue && balanceIcon) {
+                    if (balanceText.style.display === 'none') {
+                        // Masquer
+                        balanceText.style.display = 'block';
+                        balanceValue.style.display = 'none';
+                        balanceIcon.className = 'fas fa-eye';
+                    } else {
+                        // Afficher
+                        balanceText.style.display = 'none';
+                        balanceValue.style.display = 'block';
+                        balanceIcon.className = 'fas fa-eye-slash';
+                    }
+                    console.log('👁️ Toggle solde');
+                }
+            };
+        }
+    
+        // ============================================
+        // 6. NAVIGATION COMPTES
+        // ============================================
+        const prevBtn = document.getElementById('prevAccount');
+        const nextBtn = document.getElementById('nextAccount');
+        
+        if (prevBtn) {
+            prevBtn.onclick = function(e) {
+                e.preventDefault();
+                if (currentAccountIndex > 0) {
+                    currentAccountIndex--;
+                    updateAccountDisplay();
+                    console.log('⬅️ Compte précédent');
+                }
+            };
+        }
+        
+        if (nextBtn) {
+            nextBtn.onclick = function(e) {
+                e.preventDefault();
+                if (currentAccountIndex < accounts.length - 1) {
+                    currentAccountIndex++;
+                    updateAccountDisplay();
+                    console.log('➡️ Compte suivant');
+                }
+            };
+        }
+    
+        // ============================================
+        // 7. BOUTONS HEADER
+        // ============================================
+        const logoutBtn = document.getElementById('logoutBtn');
+        if (logoutBtn) {
+            logoutBtn.onclick = function(e) {
+                e.preventDefault();
+                if (confirm('Êtes-vous sûr de vouloir vous déconnecter ?')) {
+                    console.log('🚪 Déconnexion');
+                    window.location.href = 'login.html';
+                }
+            };
+        }
+    
+        const notificationBtn = document.getElementById('notificationBtn');
+        if (notificationBtn) {
+            notificationBtn.onclick = function(e) {
+                e.preventDefault();
+                
+                // Retirer classe active
+                sidebarItems.forEach(item => item.classList.remove('active'));
+                contentPanels.forEach(panel => panel.classList.remove('active'));
+                
+                // Afficher notifications
+                const notificationsPanel = document.getElementById('notificationsContent');
+                if (notificationsPanel) {
+                    notificationsPanel.classList.add('active');
+                    console.log('🔔 Notifications ouvertes');
+                }
+            };
+        }
+    
+        // ============================================
+        // 8. TOUS LES AUTRES BOUTONS
+        // ============================================
+        const allButtons = document.querySelectorAll('button:not([id]):not(.close-sidebar):not(.admin-btn)');
+        
+        allButtons.forEach(function(button, index) {
+            button.onclick = function(e) {
+                e.preventDefault();
+                
+                const buttonText = this.textContent.trim();
+                console.log(`🔘 Bouton cliqué: "${buttonText}"`);
+                
+                // Actions spécifiques
+                switch(buttonText) {
+                    case 'Ajouter':
+                        showNotification('Fonction Ajouter une carte', 'info');
+                        break;
+                    case 'Demander':
+                        showNotification('Demande de crédit initiée', 'success');
+                        break;
+                    case 'Appeler':
+                        window.open('tel:+24101234567');
+                        showNotification('Ouverture de l\'application téléphone...', 'info');
+                        break;
+                    case 'Écrire':
+                        window.open('mailto:support@bamboo.ga');
+                        showNotification('Ouverture de l\'email...', 'info');
+                        break;
+                    case 'Chatter':
+                        showNotification('Chat en ligne bientôt disponible', 'info');
+                        break;
+                    case 'Localiser':
+                        showNotification('Géolocalisation des agences...', 'info');
+                        break;
+                    case 'Demander l\'avance':
+                        const amount = document.querySelector('input[type="number"]')?.value;
+                        if (amount) {
+                            showNotification(`Demande d'avance de ${formatCurrency(amount)} traitée`, 'success');
+                        } else {
+                            showNotification('Veuillez saisir un montant', 'error');
+                        }
+                        break;
+                    case 'Marquer tout comme lu':
+                        markAllNotificationsAsRead();
+                        break;
+                    case 'Supprimer les lues':
+                        clearReadNotifications();
+                        break;
+                    default:
+                        showNotification(`Action: ${buttonText}`, 'info');
+                }
+            };
+        });
+    
+        // ============================================
+        // 9. GESTION DES NOTIFICATIONS
+        // ============================================
+        function markAllNotificationsAsRead() {
+            const notificationItems = document.querySelectorAll('.notification-item');
+            notificationItems.forEach(function(item) {
+                item.classList.remove('unread');
+                const dot = item.querySelector('.unread-dot');
+                if (dot) dot.className = 'read-dot';
+            });
+            showNotification('Toutes les notifications marquées comme lues', 'success');
+        }
+    
+        function clearReadNotifications() {
+            const readItems = document.querySelectorAll('.notification-item:not(.unread)');
+            let count = readItems.length;
+            readItems.forEach(function(item) {
+                item.style.opacity = '0';
+                setTimeout(() => item.remove(), 300);
+            });
+            showNotification(`${count} notifications lues supprimées`, 'success');
+        }
+    
+        // Clic sur notification individuelle
+        const notificationItems = document.querySelectorAll('.notification-item');
+        notificationItems.forEach(function(item) {
+            item.onclick = function() {
+                this.classList.remove('unread');
+                const dot = this.querySelector('.unread-dot');
+                if (dot) dot.className = 'read-dot';
+            };
+        });
+    
+        // ============================================
+        // 10. INITIALISATION BASE DE DONNÉES
+        // ============================================
+        async function initDatabase() {
+            try {
+                if (typeof BambooDatabase !== 'undefined') {
+                    bambooDB = new BambooDatabase();
+                    await bambooDB.init();
+                    await bambooDB.initialiserDonneesDemo();
+                    console.log('💾 Base de données initialisée');
+                    
+                    // Charger les comptes depuis IndexedDB
+                    await loadAccountsFromDB();
+                    
+                    // Charger les transactions depuis IndexedDB
+                    await loadTransactionsFromDB();
+                    
+                    // Auto-actualisation des stats toutes les 30 secondes
+                    setInterval(adminActualiserStats, 30000);
+                    
+                    // Actualiser les stats admin immédiatement
+                    setTimeout(adminActualiserStats, 100);
+                    setTimeout(adminActualiserStats, 2000);
+                    setTimeout(adminActualiserStats, 5000);
+                }
+            } catch (error) {
+                console.error('❌ Erreur base de données:', error);
+                showNotification('Erreur initialisation base de données', 'error');
             }
         }
 
-        // Initialisation de toutes les fonctionnalités
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('Initialisation de l\'application...');
+        // Charger les comptes depuis IndexedDB
+        async function loadAccountsFromDB() {
+            if (!bambooDB) return;
             
-            // Vérification de l'authentification
-            if (!sessionStorage.getItem('userAuthenticated')) {
-                window.location.href = 'login.html';
+            try {
+                const comptes = await bambooDB.obtenirComptes();
+                // Filtrer seulement les comptes de EYENG ASSOUMOU
+                const comptesEyeng = comptes.filter(compte => compte.utilisateur === 'EYENG ASSOUMOU');
+                accounts = comptesEyeng.map(compte => ({
+                    id: compte.id,
+                    type: compte.type.toUpperCase(),
+                    number: `N° ${compte.numero}`,
+                    balance: formatCurrency(compte.solde),
+                    solde: compte.solde
+                }));
+                
+                console.log('📊 Comptes chargés depuis IndexedDB:', accounts);
+                
+                // Mettre à jour l'affichage
+                updateAccountDisplay();
+                updatePatrimoineChart(); // Mettre à jour le diagramme
+            } catch (error) {
+                console.error('❌ Erreur chargement comptes:', error);
+            }
+        }
+
+        // Fonction pour charger les transactions depuis IndexedDB
+        async function loadTransactionsFromDB() {
+            if (!bambooDB) return;
+            
+            try {
+                const transactions = await bambooDB.obtenirTransactions();
+                console.log('📊 Transactions chargées depuis IndexedDB:', transactions);
+                
+                // Mettre à jour l'affichage des transactions
+                updateTransactionsDisplay(transactions);
+            } catch (error) {
+                console.error('❌ Erreur chargement transactions:', error);
+            }
+        }
+
+        // Fonction pour mettre à jour l'affichage des transactions
+        function updateTransactionsDisplay(transactions) {
+            const transactionsList = document.querySelector('.transactions-list');
+            if (!transactionsList) return;
+
+            // Trier par date (plus récent en premier)
+            const sortedTransactions = transactions.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+            let html = '';
+            sortedTransactions.forEach(transaction => {
+                const isPositive = transaction.type === 'depot' || transaction.type === 'virement_recu';
+                const amountClass = isPositive ? 'positive' : 'negative';
+                const amountPrefix = isPositive ? '+' : '-';
+                
+                // Choisir l'icône selon le type
+                let iconClass = 'fas fa-exchange-alt';
+                if (transaction.type === 'depot' || transaction.type === 'virement_recu') {
+                    iconClass = 'fas fa-arrow-up text-success';
+                } else if (transaction.type === 'retrait' || transaction.type === 'virement_envoye') {
+                    iconClass = 'fas fa-arrow-down text-danger';
+                } else if (transaction.type === 'paiement_carte') {
+                    iconClass = 'fas fa-credit-card text-warning';
+                } else if (transaction.type === 'recharge_mobile') {
+                    iconClass = 'fas fa-mobile-alt text-info';
+                }
+
+                // Formater la date
+                const date = new Date(transaction.date);
+                const formattedDate = date.toLocaleDateString('fr-FR', { 
+                    day: 'numeric', 
+                    month: 'short', 
+                    year: 'numeric' 
+                });
+
+                html += `
+                    <div class="transaction-item">
+                        <div class="transaction-icon">
+                            <i class="${iconClass}"></i>
+                        </div>
+                        <div class="transaction-details">
+                            <h4>${transaction.description}</h4>
+                            <p>${transaction.beneficiaire || transaction.reference}</p>
+                            <span class="transaction-date">${formattedDate}</span>
+                        </div>
+                        <div class="transaction-amount ${amountClass}">${amountPrefix} ${formatCurrency(transaction.montant)}</div>
+                    </div>
+                `;
+            });
+
+            transactionsList.innerHTML = html;
+        }
+
+        // Fonction pour mettre à jour le diagramme de patrimoine
+        window.updatePatrimoineChart = async function() {
+            if (!bambooDB) return;
+            
+            try {
+                const comptes = await bambooDB.obtenirComptes();
+                
+                // Calculer les montants
+                let compteCourant = 0;
+                let compteEpargne = 0;
+                let interetsEpargne = 0;
+                let interetsAvenir = 0;
+                
+                comptes.forEach(compte => {
+                    // Ne prendre que les comptes de EYENG ASSOUMOU
+                    if (compte.utilisateur === 'EYENG ASSOUMOU') {
+                        console.log('🔍 Compte EYENG trouvé:', compte.type, 'Solde:', compte.solde);
+                        switch(compte.type.toLowerCase()) {
+                            case 'courant':
+                                compteCourant = compte.solde;
+                                break;
+                            case 'epargne':
+                                compteEpargne = compte.solde;
+                                break;
+                            case 'interets':
+                                interetsEpargne = compte.solde;
+                                break;
+                            case 'interets_futurs':
+                                interetsAvenir = compte.solde;
+                                break;
+                        }
+                    }
+                });
+                
+                // Calculer le total des comptes principaux (courant + épargne)
+                const totalComptes = compteCourant + compteEpargne;
+                
+                const totalPatrimoine = totalComptes + interetsEpargne + interetsAvenir;
+                
+                // Calculer les pourcentages
+                const pourcentageComptes = totalPatrimoine > 0 ? (totalComptes / totalPatrimoine * 100) : 0;
+                const pourcentageInterets = totalPatrimoine > 0 ? (interetsEpargne / totalPatrimoine * 100) : 0;
+                const pourcentageAvenir = totalPatrimoine > 0 ? (interetsAvenir / totalPatrimoine * 100) : 0;
+                
+                // Mettre à jour le texte central
+                const centerAmount = document.querySelector('.chart-center-amount');
+                if (centerAmount) {
+                    centerAmount.textContent = formatCurrency(totalPatrimoine).replace(' FCFA', '');
+                }
+                
+                // Mettre à jour la légende
+                const legendItems = document.querySelectorAll('.legend-item');
+                if (legendItems.length >= 3) {
+                    // Comptes (Courant + Épargne)
+                    const epargneAmount = legendItems[0].querySelector('.legend-amount');
+                    const epargnePercentage = legendItems[0].querySelector('.legend-percentage');
+                    if (epargneAmount) epargneAmount.textContent = formatCurrency(totalComptes);
+                    if (epargnePercentage) epargnePercentage.textContent = pourcentageComptes.toFixed(1) + '%';
+                    
+                    // Intérêts Épargne
+                    const interetsAmount = legendItems[1].querySelector('.legend-amount');
+                    const interetsPercentage = legendItems[1].querySelector('.legend-percentage');
+                    if (interetsAmount) interetsAmount.textContent = formatCurrency(interetsEpargne);
+                    if (interetsPercentage) interetsPercentage.textContent = pourcentageInterets.toFixed(1) + '%';
+                    
+                    // Intérêts à venir
+                    const avenirAmount = legendItems[2].querySelector('.legend-amount');
+                    const avenirPercentage = legendItems[2].querySelector('.legend-percentage');
+                    if (avenirAmount) avenirAmount.textContent = formatCurrency(interetsAvenir);
+                    if (avenirPercentage) avenirPercentage.textContent = pourcentageAvenir.toFixed(1) + '%';
+                }
+                
+                // Mettre à jour les attributs data pour les segments du graphique
+                const segments = document.querySelectorAll('.chart-segment');
+                if (segments.length >= 3) {
+                    segments[0].setAttribute('data-amount', formatCurrency(compteEpargne));
+                    segments[1].setAttribute('data-amount', formatCurrency(interetsEpargne));
+                    segments[2].setAttribute('data-amount', formatCurrency(interetsAvenir));
+                }
+                
+                console.log('📊 Diagramme de patrimoine mis à jour:', {
+                    total: totalPatrimoine,
+                    epargne: compteEpargne,
+                    interets: interetsEpargne,
+                    avenir: interetsAvenir
+                });
+                
+            } catch (error) {
+                console.error('Erreur mise à jour diagramme:', error);
+            }
+        };
+    
+        // ============================================
+        // 11. FONCTIONS ADMINISTRATION COMPLÈTES
+        // ============================================
+        
+        // Actualiser statistiques admin - Mise à jour automatique
+        window.adminActualiserStats = async function() {
+            if (!bambooDB) {
+                console.log('⏳ Base de données pas encore prête, réessai dans 1s...');
+                setTimeout(adminActualiserStats, 1000);
+                return;
+            }
+            
+            try {
+                const [comptes, transactions, utilisateurs] = await Promise.all([
+                    bambooDB.obtenirComptes(),
+                    bambooDB.obtenirTransactions(), 
+                    bambooDB.obtenirUtilisateurs()
+                ]);
+    
+                // Filtrer tous les comptes d'EYENG pour les stats (courant + patrimoine)
+                const comptesEyeng = comptes.filter(compte => 
+                    compte.utilisateur === 'EYENG ASSOUMOU'
+                );
+                
+                // Calculer le volume total basé sur tous les comptes d'EYENG
+                const volumeTotal = comptesEyeng.reduce((total, compte) => total + compte.solde, 0);
+                
+                const usersCount = document.getElementById('adminUsersCount');
+                const accountsCount = document.getElementById('adminAccountsCount'); 
+                const transactionsCount = document.getElementById('adminTransactionsCount');
+                const totalVolume = document.getElementById('adminTotalVolume');
+                
+                if (usersCount) usersCount.textContent = utilisateurs.length;
+                if (accountsCount) accountsCount.textContent = comptesEyeng.length; // Tous les comptes d'EYENG
+                if (transactionsCount) transactionsCount.textContent = transactions.length;
+                if (totalVolume) totalVolume.textContent = formatCurrency(volumeTotal);
+                
+                console.log('📊 Stats admin mises à jour automatiquement');
+            } catch (error) {
+                console.error('❌ Erreur stats admin:', error);
+            }
+        };
+    
+        // Fonctions d'affichage admin
+        function adminAfficherDonnees(titre, contenu) {
+            const display = document.getElementById('adminDataDisplay');
+            const title = document.getElementById('adminDataTitle');
+            const content = document.getElementById('adminDataContent');
+            
+            if (title) title.textContent = titre;
+            if (content) content.innerHTML = contenu;
+            if (display) display.style.display = 'block';
+            
+            // Scroll vers la zone d'affichage
+            display?.scrollIntoView({ behavior: 'smooth' });
+        }
+    
+        window.adminFermerAffichage = function() {
+            const display = document.getElementById('adminDataDisplay');
+            if (display) display.style.display = 'none';
+        };
+    
+        // ============================================
+        // 🏦 GESTION DES COMPTES - COMPLET
+        // ============================================
+        
+        window.adminVoirComptes = async function() {
+            console.log('🔍 adminVoirComptes appelée');
+            if (!bambooDB) {
+                console.log('❌ Base de données non disponible');
+                showNotification('Base de données non initialisée', 'error');
+                return;
+            }
+            
+            try {
+                const comptes = await bambooDB.obtenirComptes();
+                // Filtrer seulement les 3 comptes de patrimoine d'EYENG
+                const comptesPatrimoine = comptes.filter(compte => 
+                    compte.utilisateur === 'EYENG ASSOUMOU' && 
+                    (compte.type === 'epargne' || compte.type === 'interets' || compte.type === 'interets_futurs')
+                );
+                
+                let contenu = '';
+                
+                if (comptesPatrimoine.length === 0) {
+                    contenu = '<p style="text-align: center; color: #666;">Aucun compte de patrimoine trouvé</p>';
+                } else {
+                    comptesPatrimoine.forEach(compte => {
+                        const typeDisplay = compte.type === 'epargne' ? 'Compte Épargne' : 
+                                          compte.type === 'interets' ? 'Intérêts Épargne' : 
+                                          'Intérêts à venir';
+                                          
+                        contenu += `
+                            <div class="data-item">
+                                <h4>${typeDisplay} - ${compte.numero}</h4>
+                                <p><strong>Solde:</strong> <span class="data-value">${formatCurrency(compte.solde)}</span></p>
+                                <p><strong>Utilisateur:</strong> ${compte.utilisateur}</p>
+                                <p><strong>Statut:</strong> <span style="color: ${compte.statut === 'actif' ? '#28a745' : '#dc3545'}">${compte.statut}</span></p>
+                                <p><strong>Date création:</strong> ${formatDate(compte.dateCreation)}</p>
+                                <p><strong>Description:</strong> ${compte.description || 'Aucune'}</p>
+                            </div>
+                        `;
+                    });
+                }
+                
+                adminAfficherDonnees(`Comptes de Patrimoine (${comptesPatrimoine.length})`, contenu);
+            } catch (error) {
+                console.error('Erreur récupération comptes:', error);
+                showNotification('Erreur récupération comptes', 'error');
+            }
+        };
+    
+    
+
+        // Modifier un compte
+        window.adminModifierCompte = async function() {
+            if (!bambooDB) {
+                showNotification('Base de données non initialisée', 'error');
+                return;
+            }
+            
+            try {
+                const comptes = await bambooDB.obtenirComptes();
+                // Filtrer seulement les 3 comptes de patrimoine d'EYENG
+                const comptesPatrimoine = comptes.filter(compte => 
+                    compte.utilisateur === 'EYENG ASSOUMOU' && 
+                    (compte.type === 'epargne' || compte.type === 'interets' || compte.type === 'interets_futurs')
+                );
+                
+                let contenu = '';
+
+                if (comptesPatrimoine.length === 0) {
+                    contenu = '<p>Aucun compte de patrimoine à modifier</p>';
+                } else {
+                    comptesPatrimoine.forEach(compte => {
+                        const typeDisplay = compte.type === 'epargne' ? 'Compte Épargne' : 
+                                          compte.type === 'interets' ? 'Intérêts Épargne' : 
+                                          'Intérêts à venir';
+                                          
+                        contenu += `
+                            <div class="data-item">
+                                <h4>${typeDisplay} - ${compte.numero}</h4>
+                                <p><strong>Solde actuel:</strong> <span class="data-value">${formatCurrency(compte.solde)}</span></p>
+                                <p><strong>Utilisateur:</strong> ${compte.utilisateur}</p>
+                                <div class="admin-form-group" style="margin-top: 1rem;">
+                                    <label>Nouveau solde:</label>
+                                    <input type="number" id="newBalance_${compte.id}" value="${compte.solde}" step="0.01">
+                                </div>
+                                <button class="admin-btn" onclick="adminConfirmerModificationCompte(${compte.id})" style="background: #28a745; margin-top: 0.5rem;">
+                                    <i class="fas fa-save"></i>
+                                    Modifier le solde
+                                </button>
+                            </div>
+                        `;
+                    });
+                }
+
+                adminAfficherDonnees('Modifier les Comptes de Patrimoine', contenu);
+            } catch (error) {
+                console.error('Erreur récupération comptes:', error);
+                showNotification('Erreur récupération comptes', 'error');
+            }
+        };
+
+        // Confirmer modification du solde
+        window.adminConfirmerModificationCompte = async function(compteId) {
+            if (!bambooDB) return;
+
+            const newBalanceInput = document.getElementById(`newBalance_${compteId}`);
+            const newBalance = parseFloat(newBalanceInput.value);
+
+            if (isNaN(newBalance) || newBalance < 0) {
+                showNotification('Veuillez entrer un montant valide', 'error');
                 return;
             }
 
-            // Initialiser l'affichage du compte
-            updateAccountDisplay();
+            try {
+                await bambooDB.mettreAJourSolde(compteId, newBalance);
+                showNotification('Solde modifié avec succès!', 'success');
+                
+                // Recharger les comptes côté client
+                loadAccountsFromDB();
+                
+                // Mettre à jour le diagramme de patrimoine
+                updatePatrimoineChart();
+                
+                // Rafraîchir l'affichage admin
+                adminModifierCompte();
+                await adminActualiserStats();
+            } catch (error) {
+                console.error('Erreur modification solde:', error);
+                showNotification('Erreur modification solde: ' + error.message, 'error');
+            }
+        };
+    
+        // ============================================
+        // 💳 GESTION DES TRANSACTIONS - COMPLET
+        // ============================================
+        
+        window.adminVoirTransactions = async function() {
+            console.log('🔍 adminVoirTransactions appelée');
+            if (!bambooDB) return;
             
-            // Initialiser le diagramme circulaire
-            updatePieChart();
-
-            // Initialisation de la sidebar
-            const menuBtn = document.getElementById('menuBtn');
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.getElementById('overlay');
-            const closeSidebar = document.getElementById('closeSidebar');
-
-            console.log('Elements trouvés:', { menuBtn, sidebar, overlay, closeSidebar });
-
-            if (menuBtn) {
-                menuBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    console.log('Menu cliqué');
-                    if (sidebar) {
-                        sidebar.classList.add('open');
-                        console.log('Sidebar ouverte');
-                    }
-                    if (overlay) {
-                        overlay.classList.add('show');
-                        console.log('Overlay affiché');
-                    }
-                });
-            }
-
-            if (closeSidebar) {
-                closeSidebar.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    console.log('Fermeture sidebar');
-                    if (sidebar) {
-                        sidebar.classList.remove('open');
-                    }
-                    if (overlay) {
-                        overlay.classList.remove('show');
-                    }
-                });
-            }
-
-            if (overlay) {
-                overlay.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    console.log('Clic overlay');
-                    if (sidebar) {
-                        sidebar.classList.remove('open');
-                    }
-                    if (overlay) {
-                        overlay.classList.remove('show');
-                    }
-                });
-            }
-
-            // Fonctionnalité d'affichage/masquage du solde
-            const toggleBtn = document.getElementById('toggleBalance');
-            if (toggleBtn) {
-                toggleBtn.addEventListener('click', function() {
-                    const balanceText = document.getElementById('balanceText');
-                    const balanceValue = document.getElementById('balanceValue');
-                    const balanceIcon = document.getElementById('balanceIcon');
+            try {
+                const transactions = await bambooDB.obtenirTransactions();
+                let contenu = '';
+                
+                if (transactions.length === 0) {
+                    contenu = '<p style="text-align: center; color: #666;">Aucune transaction trouvée</p>';
+                } else {
+                    // Trier par date (plus récent en premier)
+                    transactions.sort((a, b) => new Date(b.date) - new Date(a.date));
                     
-                    if (balanceText && balanceValue && balanceIcon) {
-                        if (balanceText.style.display !== 'none') {
-                            // Afficher le solde
-                            balanceText.style.display = 'none';
-                            balanceValue.style.display = 'block';
-                            balanceIcon.className = 'fas fa-eye-slash';
-                        } else {
-                            // Masquer le solde
-                            balanceText.style.display = 'block';
-                            balanceValue.style.display = 'none';
-                            balanceIcon.className = 'fas fa-eye';
-                        }
-                    }
-                });
-            }
-
-            // Navigation dans la sidebar
-            const sidebarLinks = document.querySelectorAll('.sidebar-nav a');
-            const contentPanels = document.querySelectorAll('.content-panel');
-            const sidebarItems = document.querySelectorAll('.sidebar-nav li');
-
-            console.log('Liens sidebar trouvés:', sidebarLinks.length);
-            console.log('Panneaux de contenu trouvés:', contentPanels.length);
-
-            sidebarLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    console.log('Lien sidebar cliqué:', this.getAttribute('href'));
-                    
-                    // Retirer la classe active de tous les éléments
-                    sidebarItems.forEach(item => item.classList.remove('active'));
-                    contentPanels.forEach(panel => panel.classList.remove('active'));
-                    
-                    // Ajouter la classe active à l'élément cliqué
-                    this.parentElement.classList.add('active');
-                    
-                    // Afficher le contenu correspondant
-                    const href = this.getAttribute('href');
-                    const targetPanel = document.getElementById(href.substring(1) + 'Content');
-                    
-                    if (targetPanel) {
-                        targetPanel.classList.add('active');
-                        console.log('Panneau affiché:', targetPanel.id);
-                    }
-                    
-                    // Fermer la sidebar
-                    if (sidebar) sidebar.classList.remove('open');
-                    if (overlay) overlay.classList.remove('show');
-                });
-            });
-
-            // Navigation entre comptes
-            const prevBtn = document.getElementById('prevAccount');
-            const nextBtn = document.getElementById('nextAccount');
-            
-            console.log('Boutons de navigation trouvés:', { prevBtn, nextBtn });
-            console.log('Nombre de comptes:', accounts.length);
-            console.log('Éléments DOM chargés:', document.readyState);
-            
-            if (prevBtn) {
-                prevBtn.addEventListener('click', function() {
-                    console.log('Bouton précédent cliqué, index actuel:', currentAccountIndex);
-                    if (currentAccountIndex > 0) {
-                        currentAccountIndex--;
-                        updateAccountDisplay();
-                        console.log('Compte précédent:', accounts[currentAccountIndex].type);
-                    }
-                });
-            }
-            
-            if (nextBtn) {
-                nextBtn.addEventListener('click', function() {
-                    console.log('Bouton suivant cliqué, index actuel:', currentAccountIndex);
-                    if (currentAccountIndex < accounts.length - 1) {
-                        currentAccountIndex++;
-                        updateAccountDisplay();
-                        console.log('Compte suivant:', accounts[currentAccountIndex].type);
-                    }
-                });
-            }
-
-            // Fonctionnalité de déconnexion
-            const logoutBtn = document.getElementById('logoutBtn');
-            if (logoutBtn) {
-                logoutBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    console.log('Déconnexion...');
-                    sessionStorage.removeItem('userLoggedIn');
-                    sessionStorage.removeItem('userAuthenticated');
-                    window.location.href = 'login.html';
-                });
-            }
-
-            // Gestion de l'icône de notification dans le header
-            const notificationBtn = document.getElementById('notificationBtn');
-
-            if (notificationBtn) {
-                notificationBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    console.log('Icône notification cliquée');
-                    
-                    // Retirer la classe active de tous les éléments
-                    sidebarItems.forEach(item => item.classList.remove('active'));
-                    contentPanels.forEach(panel => panel.classList.remove('active'));
-                    
-                    // Afficher le panneau des notifications
-                    const notificationsPanel = document.getElementById('notificationsContent');
-                    if (notificationsPanel) {
-                        notificationsPanel.classList.add('active');
-                        console.log('Panneau notifications affiché');
-                    }
-                });
-            }
-
-            // Gestion des notifications
-            const notificationItems = document.querySelectorAll('.notification-item');
-            const markAllReadBtn = document.querySelector('.mark-all-read');
-            const clearReadBtn = document.querySelector('.clear-read');
-
-            // Marquer une notification comme lue
-            notificationItems.forEach(item => {
-                item.addEventListener('click', function() {
-                    if (this.classList.contains('unread')) {
-                        this.classList.remove('unread');
-                        const unreadDot = this.querySelector('.unread-dot');
-                        if (unreadDot) {
-                            unreadDot.className = 'read-dot';
-                        }
-                    }
-                });
-            });
-
-            // Marquer toutes les notifications comme lues
-            if (markAllReadBtn) {
-                markAllReadBtn.addEventListener('click', function() {
-                    notificationItems.forEach(item => {
-                        item.classList.remove('unread');
-                        const unreadDot = item.querySelector('.unread-dot');
-                        if (unreadDot) {
-                            unreadDot.className = 'read-dot';
-                        }
+                    transactions.forEach(transaction => {
+                        const montantFormatted = formatCurrency(transaction.montant);
+                        const dateFormatted = formatDate(transaction.date);
+                        const timeFormatted = new Date(transaction.date).toLocaleTimeString('fr-FR');
+                        
+                        contenu += `
+                            <div class="data-item">
+                                <h4>${transaction.type.toUpperCase()} - ${transaction.reference}</h4>
+                                <p><strong>Montant:</strong> <span class="data-value" style="color: ${transaction.type === 'depot' ? '#28a745' : '#dc3545'}">${montantFormatted}</span></p>
+                                <p><strong>Description:</strong> ${transaction.description}</p>
+                                <p><strong>Date:</strong> ${dateFormatted} à ${timeFormatted}</p>
+                                <p><strong>Statut:</strong> <span style="color: ${transaction.statut === 'validee' ? '#28a745' : '#ffc107'}">${transaction.statut}</span></p>
+                                ${transaction.beneficiaire ? `<p><strong>Bénéficiaire:</strong> ${transaction.beneficiaire}</p>` : ''}
+                            </div>
+                        `;
                     });
-                });
+                }
+                
+                adminAfficherDonnees(`Liste des Transactions (${transactions.length})`, contenu);
+            } catch (error) {
+                console.error('Erreur récupération transactions:', error);
+                showNotification('Erreur récupération transactions', 'error');
             }
-
-            // Supprimer les notifications lues
-            if (clearReadBtn) {
-                clearReadBtn.addEventListener('click', function() {
-                    notificationItems.forEach(item => {
-                        if (!item.classList.contains('unread')) {
-                            item.style.opacity = '0';
-                            setTimeout(() => {
-                                item.remove();
-                            }, 300);
-                        }
-                    });
+        };
+    
+        window.adminAjouterTransaction = async function() {
+            if (!bambooDB) return;
+    
+            try {
+                const comptes = await bambooDB.obtenirComptes();
+                // Filtrer seulement les comptes COURANT et EPARGNE d'EYENG
+                const comptesOperables = comptes.filter(compte => 
+                    compte.utilisateur === 'EYENG ASSOUMOU' && 
+                    (compte.type === 'courant' || compte.type === 'epargne')
+                );
+                
+                let optionsComptes = '<option value="">Sélectionnez un compte</option>';
+                comptesOperables.forEach(compte => {
+                    const typeDisplay = compte.type === 'courant' ? 'Compte Courant' : 'Compte Épargne';
+                    optionsComptes += `<option value="${compte.id}">${typeDisplay} - ${compte.numero}</option>`;
                 });
+    
+                const contenu = `
+                    <div class="admin-form">
+                        <h4>Ajouter une nouvelle transaction</h4>
+                        <div class="admin-form-group">
+                            <label>Compte *:</label>
+                            <select id="newTransactionAccount" required onchange="updateBalanceInfo()">
+                                ${optionsComptes}
+                            </select>
+                            <small id="balanceInfo" style="color: #666;"></small>
+                        </div>
+                        <div class="admin-form-group">
+                            <label>Type de transaction *:</label>
+                            <select id="newTransactionType" required>
+                                <option value="">Sélectionnez un type</option>
+                                <option value="depot">Dépôt (+)</option>
+                                <option value="retrait">Retrait (-)</option>
+                                <option value="virement_entrant">Virement entrant (+)</option>
+                                <option value="virement_sortant">Virement sortant (-)</option>
+                                <option value="paiement">Paiement (-)</option>
+                                <option value="interets">Intérêts (+)</option>
+                                <option value="frais">Frais (-)</option>
+                            </select>
+                        </div>
+                        <div class="admin-form-group">
+                            <label>Montant * (en ${comptes[0]?.devise || 'FCFA'}):</label>
+                            <input type="number" id="newTransactionAmount" placeholder="0" step="0.01" min="0.01" required>
+                        </div>
+                        <div class="admin-form-group">
+                            <label>Description *:</label>
+                            <input type="text" id="newTransactionDescription" placeholder="Description de la transaction" required>
+                        </div>
+                        <div class="admin-form-group">
+                            <label>Bénéficiaire (optionnel):</label>
+                            <input type="text" id="newTransactionBeneficiary" placeholder="Nom du bénéficiaire">
+                        </div>
+                        <div class="admin-form-group">
+                            <label>Date:</label>
+                            <input type="datetime-local" id="newTransactionDate" value="${new Date().toISOString().slice(0, 16)}">
+                        </div>
+                        <div class="admin-form-buttons">
+                            <button class="admin-btn" onclick="adminCreerTransaction()" style="background: #28a745;">
+                                <i class="fas fa-save"></i>
+                                Créer la transaction
+                            </button>
+                            <button class="admin-btn" onclick="adminFermerAffichage()" style="background: #dc3545;">
+                                <i class="fas fa-times"></i>
+                                Annuler
+                            </button>
+                        </div>
+                    </div>
+                `;
+    
+                adminAfficherDonnees('Ajouter une Transaction', contenu);
+                
+                // Fonction pour mettre à jour l'info du solde
+                window.updateBalanceInfo = function() {
+                    const select = document.getElementById('newTransactionAccount');
+                    const info = document.getElementById('balanceInfo');
+                    const compteId = parseInt(select.value);
+                    
+                    if (compteId) {
+                        const compte = comptes.find(c => c.id === compteId);
+                        if (compte && info) {
+                            info.textContent = `Solde actuel: ${formatCurrency(compte.solde)}`;
+                        }
+                    }
+                };
+                
+            } catch (error) {
+                console.error('Erreur récupération comptes:', error);
+                showNotification('Erreur récupération comptes', 'error');
+            }
+        };
+    
+        window.adminCreerTransaction = async function() {
+            if (!bambooDB) return;
+    
+            const compteId = parseInt(document.getElementById('newTransactionAccount').value);
+            const type = document.getElementById('newTransactionType').value;
+            const montant = parseFloat(document.getElementById('newTransactionAmount').value);
+            const description = document.getElementById('newTransactionDescription').value.trim();
+            const beneficiaire = document.getElementById('newTransactionBeneficiary').value.trim();
+            const date = document.getElementById('newTransactionDate').value;
+    
+            // Validation
+            if (!compteId || !type || !montant || !description) {
+                showNotification('Veuillez remplir tous les champs obligatoires (*)', 'error');
+                return;
+            }
+    
+            if (montant <= 0) {
+                showNotification('Le montant doit être supérieur à zéro', 'error');
+                return;
+            }
+    
+            try {
+                const reference = generateReference();
+                const transactionDate = date ? new Date(date) : new Date();
+                
+                // Récupérer le compte pour vérifier le solde
+                const compte = await bambooDB.obtenirCompteParId(compteId);
+                if (!compte) {
+                    showNotification('Compte non trouvé', 'error');
+                    return;
+                }
+                
+                // Déterminer si c'est un crédit ou un débit
+                const isCredit = type === 'depot' || type === 'virement_entrant' || type === 'interets';
+                const isDebit = type === 'retrait' || type === 'virement_sortant' || type === 'paiement' || type === 'frais';
+                
+                if (!isCredit && !isDebit) {
+                    showNotification('Type de transaction non reconnu', 'error');
+                    return;
+                }
+                
+                // Vérifier le solde pour les débits
+                if (isDebit && compte.solde < montant) {
+                    showNotification(`Solde insuffisant! Solde actuel: ${formatCurrency(compte.solde)}`, 'error');
+                    return;
+                }
+                
+                // Calculer le nouveau solde
+                const nouveauSolde = isCredit ? 
+                    compte.solde + montant : 
+                    compte.solde - montant;
+                
+                // Créer la transaction
+                await bambooDB.ajouterTransaction({
+                    compteId: compteId,
+                    type: type,
+                    montant: montant,
+                    description: description,
+                    beneficiaire: beneficiaire,
+                    reference: reference,
+                    date: transactionDate,
+                    statut: 'validee'
+                });
+                
+                // Mettre à jour le solde du compte
+                await bambooDB.mettreAJourSolde(compteId, nouveauSolde);
+                
+                const operation = isCredit ? 'ajouté' : 'retiré';
+                showNotification(`Transaction ${reference} créée avec succès! ${formatCurrency(montant)} ${operation} du compte.`, 'success');
+                
+                // Recharger les données côté client
+                await loadAccountsFromDB();
+                await loadTransactionsFromDB();
+                
+                adminFermerAffichage();
+                await adminActualiserStats();
+            } catch (error) {
+                console.error('Erreur création transaction:', error);
+                showNotification('Erreur création transaction: ' + error.message, 'error');
+            }
+        };
+    
+
+        // Modifier une transaction
+        window.adminModifierTransaction = async function() {
+            if (!bambooDB) {
+                showNotification('Base de données non initialisée', 'error');
+                return;
             }
             
-            console.log('Application initialisée avec succès!');
-        });
-    </script>
+            try {
+                const transactions = await bambooDB.obtenirTransactions();
+                let contenu = '';
+
+                if (transactions.length === 0) {
+                    contenu = '<p>Aucune transaction à modifier</p>';
+                } else {
+                    // Trier par date (plus récent en premier)
+                    transactions.sort((a, b) => new Date(b.date) - new Date(a.date));
+                    
+                    transactions.forEach(transaction => {
+                        const montantFormatted = formatCurrency(transaction.montant);
+                        const dateFormatted = formatDate(transaction.date);
+                        
+                        contenu += `
+                            <div class="data-item">
+                                <h4>${transaction.type.toUpperCase()} - ${transaction.reference}</h4>
+                                <p><strong>Montant actuel:</strong> <span class="data-value">${montantFormatted}</span></p>
+                                <p><strong>Description:</strong> ${transaction.description}</p>
+                                <p><strong>Date:</strong> ${dateFormatted}</p>
+                                
+                                <div class="admin-form-group" style="margin-top: 1rem;">
+                                    <label>Nouveau montant:</label>
+                                    <input type="number" id="newAmount_${transaction.id}" value="${transaction.montant}" step="0.01">
+                                </div>
+                                
+                                <div class="admin-form-group">
+                                    <label>Nouvelle description:</label>
+                                    <input type="text" id="newDescription_${transaction.id}" value="${transaction.description}">
+                                </div>
+                                
+                                <button class="admin-btn" onclick="adminConfirmerModificationTransaction(${transaction.id})" style="background: #28a745; margin-top: 0.5rem;">
+                                    <i class="fas fa-save"></i>
+                                    Modifier la transaction
+                                </button>
+                            </div>
+                        `;
+                    });
+                }
+
+                adminAfficherDonnees('Modifier les Transactions', contenu);
+            } catch (error) {
+                console.error('Erreur récupération transactions:', error);
+                showNotification('Erreur récupération transactions', 'error');
+            }
+        };
+
+        // Confirmer modification de transaction
+        window.adminConfirmerModificationTransaction = async function(transactionId) {
+            if (!bambooDB) return;
+
+            const newAmountInput = document.getElementById(`newAmount_${transactionId}`);
+            const newDescriptionInput = document.getElementById(`newDescription_${transactionId}`);
+            
+            const newAmount = parseFloat(newAmountInput.value);
+            const newDescription = newDescriptionInput.value.trim();
+
+            if (isNaN(newAmount) || newAmount <= 0) {
+                showNotification('Veuillez entrer un montant valide', 'error');
+                return;
+            }
+
+            if (!newDescription) {
+                showNotification('Veuillez entrer une description', 'error');
+                return;
+            }
+
+            try {
+                // Récupérer la transaction existante
+                const transactions = await bambooDB.obtenirTransactions();
+                const transaction = transactions.find(t => t.id === transactionId);
+                
+                if (!transaction) {
+                    showNotification('Transaction non trouvée', 'error');
+                    return;
+                }
+
+                // Mettre à jour la transaction
+                const updatedTransaction = {
+                    ...transaction,
+                    montant: newAmount,
+                    description: newDescription
+                };
+
+                // Supprimer l'ancienne et ajouter la nouvelle
+                await bambooDB.supprimerTransaction(transactionId);
+                await bambooDB.ajouterTransaction(updatedTransaction);
+
+                showNotification('Transaction modifiée avec succès!', 'success');
+                
+                // Rafraîchir l'affichage admin
+                adminModifierTransaction();
+                await adminActualiserStats();
+            } catch (error) {
+                console.error('Erreur modification transaction:', error);
+                showNotification('Erreur modification transaction: ' + error.message, 'error');
+            }
+        };
+    
+    
+    
+        // ============================================
+        // ⚙️ PARAMÈTRES SYSTÈME - COMPLET
+        // ============================================
+        
+        window.adminViderBase = async function() {
+            if (!bambooDB) {
+                showNotification('Base de données non initialisée', 'error');
+                return;
+            }
+    
+            const confirmText = 'SUPPRIMER TOUT';
+            const userConfirm = prompt(`DANGER: Cette action va SUPPRIMER DÉFINITIVEMENT toutes les données!\n\n- Tous les comptes\n- Toutes les transactions\n- Tous les utilisateurs\n- Toutes les données de l'application\n\nTapez exactement "${confirmText}" pour confirmer:`);
+            
+            if (userConfirm === confirmText) {
+                try {
+                    await bambooDB.viderBase();
+                    showNotification('Base de données vidée avec succès! Redémarrage...', 'success');
+                    
+                    // Réinitialiser les stats
+                    setTimeout(async () => {
+                        await adminActualiserStats();
+                        showNotification('Système réinitialisé', 'info');
+                    }, 1000);
+                    
+                } catch (error) {
+                    console.error('Erreur vidage base:', error);
+                    showNotification('Erreur vidage base: ' + error.message, 'error');
+                }
+            } else if (userConfirm !== null) {
+                showNotification('Suppression annulée - texte incorrect', 'info');
+            }
+        };
+    
+
+        // Forcer réinitialisation complète
+        window.adminForcerReinit = async function() {
+            if (!bambooDB) {
+                showNotification('Base de données non initialisée', 'error');
+                return;
+            }
+
+            if (confirm('Êtes-vous sûr de vouloir forcer la réinitialisation ?\n\nCela va :\n- Vider complètement la base\n- Recréer tous les comptes\n- Recréer l\'utilisateur\n- Recréer les transactions')) {
+                try {
+                    showNotification('Réinitialisation forcée en cours...', 'info');
+                    
+                    // Vider complètement la base
+                    await bambooDB.viderBase();
+                    console.log('🗑️ Base vidée');
+                    
+                    // Réinitialiser les données de démonstration
+                    await bambooDB.initialiserDonneesDemo();
+                    console.log('🔄 Données de démonstration recréées');
+                    
+                    // Recharger les comptes
+                    await loadAccountsFromDB();
+                    
+                    // Actualiser les stats
+                    await adminActualiserStats();
+                    
+                    showNotification('Réinitialisation forcée terminée!', 'success');
+                    
+                } catch (error) {
+                    console.error('Erreur réinitialisation forcée:', error);
+                    showNotification('Erreur réinitialisation: ' + error.message, 'error');
+                }
+            }
+        };
+
+    
+        // ============================================
+        // 12. INITIALISATION FINALE
+        // ============================================
+        
+        // Initialiser affichage compte
+        updateAccountDisplay();
+        
+        // Initialiser base de données
+        initDatabase();
+        
+        // Forcer l'actualisation des stats admin au chargement
+        setTimeout(() => {
+            if (typeof adminActualiserStats === 'function') {
+                adminActualiserStats();
+            }
+        }, 2000);
+        
+        // Test des boutons admin
+        setTimeout(() => {
+            const adminButtons = document.querySelectorAll('.admin-btn');
+            console.log('🔍 Boutons admin trouvés:', adminButtons.length);
+            adminButtons.forEach((btn, index) => {
+                console.log(`Bouton ${index}:`, btn.textContent.trim(), 'onclick:', btn.onclick);
+                
+                // Forcer la reconnexion des événements onclick
+                const onclickAttr = btn.getAttribute('onclick');
+                if (onclickAttr) {
+                    btn.onclick = new Function(onclickAttr);
+                    console.log(`✅ Bouton ${index} reconnecté:`, onclickAttr);
+                }
+            });
+        }, 3000);
+        
+        // Diagnostic complet
+        console.log('🔍 Diagnostic BAMBOO:');
+        console.log('- Menu button:', !!menuBtn);
+        console.log('- Sidebar:', !!sidebar);
+        console.log('- Overlay:', !!overlay);
+        console.log('- Toggle balance:', !!toggleBtn);
+        console.log('- Navigation buttons:', !!prevBtn, !!nextBtn);
+        console.log('- Sidebar links:', sidebarLinks.length);
+        console.log('- Content panels:', contentPanels.length);
+        console.log('- All buttons:', allButtons.length);
+        console.log('- Notification items:', notificationItems.length);
+        
+        // Test de connectivité des fonctions admin
+        console.log('🔧 Fonctions Admin disponibles:');
+        console.log('- adminVoirComptes:', typeof window.adminVoirComptes);
+        console.log('- adminVoirTransactions:', typeof window.adminVoirTransactions);
+        console.log('- adminAjouterTransaction:', typeof window.adminAjouterTransaction);
+        console.log('- adminViderBase:', typeof window.adminViderBase);
+        
+        console.log('✅ BAMBOO Banking System initialisé avec succès!');
+        console.log('📊 Administration complète activée');
+        console.log('💾 Base de données IndexedDB opérationnelle');
+        
+        // Notification de démarrage
+        setTimeout(function() {
+            showNotification('🏦 Bienvenue sur BAMBOO', 'success');
+        }, 2000);
+        
+        // Test automatique après 5 secondes
+        setTimeout(function() {
+            if (bambooDB) {
+                console.log('✅ Test automatique: Base de données OK');
+                showNotification('Système vérifié et fonctionnel', 'info');
+            } else {
+                console.log('⚠️ Test automatique: Base de données non initialisée');
+                showNotification('Vérification système en cours...', 'info');
+            }
+        }, 5000);
+    });</script>
 </body>
 </html>
