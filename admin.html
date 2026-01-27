@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BAMBOO - Administration</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .admin-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .admin-header {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .admin-header h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 2.5rem;
+        }
+
+        .admin-header p {
+            color: #7f8c8d;
+            font-size: 1.1rem;
+        }
+
+        .admin-nav {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            background: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #2c3e50;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .nav-btn.active {
+            background: #2ecc71;
+            color: white;
+        }
+
+        .admin-content {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            min-height: 500px;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .stat-card h3 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .stat-card p {
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .data-table th,
+        .data-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .data-table th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .data-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .btn {
+            background: #2ecc71;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: #27ae60;
+            transform: translateY(-1px);
+        }
+
+        .btn-danger {
+            background: #e74c3c;
+        }
+
+        .btn-danger:hover {
+            background: #c0392b;
+        }
+
+        .btn-success {
+            background: #27ae60;
+        }
+
+        .btn-success:hover {
+            background: #229954;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #eee;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .alert-danger {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #7f8c8d;
+        }
+
+        .loading i {
+            font-size: 2rem;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .back-btn {
+            background: #95a5a6;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .back-btn:hover {
+            background: #7f8c8d;
+        }
+
+        @media (max-width: 768px) {
+            .admin-nav {
+                flex-direction: column;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .data-table {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <div class="admin-header">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <h1><i class="fas fa-shield-alt"></i> Administration BAMBOO</h1>
+                    <p>Gestion des données IndexedDB - Soldes et Transactions</p>
+                </div>
+                <a href="index.html" class="back-btn" style="background: #2ecc71; color: white; text-decoration: none; padding: 10px 20px; border-radius: 8px; display: flex; align-items: center; gap: 8px;">
+                    <i class="fas fa-arrow-left"></i> Retour à l'app
+                </a>
+            </div>
+        </div>
+
+        <div class="admin-nav">
+            <button class="nav-btn active" onclick="showSection('dashboard')">
+                <i class="fas fa-tachometer-alt"></i> Tableau de bord
+            </button>
+            <button class="nav-btn" onclick="showSection('comptes')">
+                <i class="fas fa-university"></i> Comptes
+            </button>
+            <button class="nav-btn" onclick="showSection('transactions')">
+                <i class="fas fa-exchange-alt"></i> Transactions
+            </button>
+            <button class="nav-btn" onclick="showSection('utilisateurs')">
+                <i class="fas fa-users"></i> Utilisateurs
+            </button>
+            <button class="nav-btn" onclick="showSection('rapports')">
+                <i class="fas fa-chart-bar"></i> Rapports
+            </button>
+            <button class="nav-btn" onclick="showSection('parametres')">
+                <i class="fas fa-cog"></i> Paramètres
+            </button>
+        </div>
+
+        <div class="admin-content">
+            <!-- Section Dashboard -->
+            <div id="dashboard" class="section active">
+                <h2><i class="fas fa-tachometer-alt"></i> Tableau de bord</h2>
+                <div id="statsContainer" class="loading">
+                    <i class="fas fa-spinner fa-spin"></i> Chargement des statistiques...
+                </div>
+            </div>
+
+            <!-- Section Comptes -->
+            <div id="comptes" class="section">
+                <h2><i class="fas fa-university"></i> Gestion des Comptes</h2>
+                <button class="btn btn-success" onclick="showAddCompteForm()">
+                    <i class="fas fa-plus"></i> Ajouter un compte
+                </button>
+                <div id="comptesList"></div>
+            </div>
+
+            <!-- Section Transactions -->
+            <div id="transactions" class="section">
+                <h2><i class="fas fa-exchange-alt"></i> Gestion des Transactions</h2>
+                <button class="btn btn-success" onclick="showAddTransactionForm()">
+                    <i class="fas fa-plus"></i> Ajouter une transaction
+                </button>
+                <div id="transactionsList"></div>
+            </div>
+
+            <!-- Section Utilisateurs -->
+            <div id="utilisateurs" class="section">
+                <h2><i class="fas fa-users"></i> Gestion des Utilisateurs</h2>
+                <button class="btn btn-success" onclick="showAddUtilisateurForm()">
+                    <i class="fas fa-plus"></i> Ajouter un utilisateur
+                </button>
+                <div id="utilisateursList"></div>
+            </div>
+
+            <!-- Section Rapports -->
+            <div id="rapports" class="section">
+                <h2><i class="fas fa-chart-bar"></i> Rapports et Statistiques</h2>
+                <div id="rapportsContent"></div>
+            </div>
+
+            <!-- Section Paramètres -->
+            <div id="parametres" class="section">
+                <h2><i class="fas fa-cog"></i> Paramètres du Système</h2>
+                <div class="form-group">
+                    <button class="btn btn-danger" onclick="viderBase()">
+                        <i class="fas fa-trash"></i> Vider la base de données
+                    </button>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-success" onclick="initialiserDemo()">
+                        <i class="fas fa-database"></i> Initialiser données de démonstration
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="database.js"></script>
+    <script>
+        // Variables globales
+        let currentSection = 'dashboard';
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', async function() {
+            try {
+                await bambooDB.init();
+                await loadDashboard();
+            } catch (error) {
+                console.error('Erreur lors de l\'initialisation:', error);
+                showAlert('Erreur lors de l\'initialisation de la base de données', 'danger');
+            }
+        });
+
+        // Navigation entre sections
+        function showSection(section) {
+            // Masquer toutes les sections
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+
+            // Afficher la section sélectionnée
+            document.getElementById(section).classList.add('active');
+            event.target.classList.add('active');
+            currentSection = section;
+
+            // Charger le contenu de la section
+            switch(section) {
+                case 'dashboard':
+                    loadDashboard();
+                    break;
+                case 'comptes':
+                    loadComptes();
+                    break;
+                case 'transactions':
+                    loadTransactions();
+                    break;
+                case 'utilisateurs':
+                    loadUtilisateurs();
+                    break;
+                case 'rapports':
+                    loadRapports();
+                    break;
+            }
+        }
+
+        // Chargement du tableau de bord
+        async function loadDashboard() {
+            try {
+                const stats = await bambooDB.obtenirStatistiques();
+                const comptes = await bambooDB.obtenirComptes();
+                
+                const statsHTML = `
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <h3>${stats.totalSolde.toLocaleString()} FCFA</h3>
+                            <p>Solde Total</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>${stats.nombreComptes}</h3>
+                            <p>Nombre de Comptes</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>${stats.totalTransactions}</h3>
+                            <p>Total Transactions</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>${comptes.filter(c => c.statut === 'actif').length}</h3>
+                            <p>Comptes Actifs</p>
+                        </div>
+                    </div>
+                    
+                    <h3>Dernières Transactions</h3>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Type</th>
+                                <th>Montant</th>
+                                <th>Date</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${comptes.map(compte => `
+                                <tr>
+                                    <td>Compte ${compte.type}</td>
+                                    <td>${compte.solde.toLocaleString()} FCFA</td>
+                                    <td>${new Date(compte.dateCreation).toLocaleDateString()}</td>
+                                    <td>${compte.description}</td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                `;
+                
+                document.getElementById('statsContainer').innerHTML = statsHTML;
+            } catch (error) {
+                console.error('Erreur lors du chargement du dashboard:', error);
+                document.getElementById('statsContainer').innerHTML = '<div class="alert alert-danger">Erreur lors du chargement des données</div>';
+            }
+        }
+
+        // Chargement des comptes
+        async function loadComptes() {
+            try {
+                const comptes = await bambooDB.obtenirComptes();
+                
+                const comptesHTML = `
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Numéro</th>
+                                <th>Type</th>
+                                <th>Solde</th>
+                                <th>Utilisateur</th>
+                                <th>Statut</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${comptes.map(compte => `
+                                <tr>
+                                    <td>${compte.numero}</td>
+                                    <td>${compte.type}</td>
+                                    <td>${compte.solde.toLocaleString()} ${compte.devise}</td>
+                                    <td>${compte.utilisateur}</td>
+                                    <td>${compte.statut}</td>
+                                    <td>
+                                        <button class="btn" onclick="editCompte(${compte.id})">Modifier</button>
+                                        <button class="btn btn-danger" onclick="deleteCompte(${compte.id})">Supprimer</button>
+                                    </td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                `;
+                
+                document.getElementById('comptesList').innerHTML = comptesHTML;
+            } catch (error) {
+                console.error('Erreur lors du chargement des comptes:', error);
+                document.getElementById('comptesList').innerHTML = '<div class="alert alert-danger">Erreur lors du chargement des comptes</div>';
+            }
+        }
+
+        // Chargement des transactions
+        async function loadTransactions() {
+            try {
+                const transactions = await bambooDB.obtenirTransactions();
+                
+                const transactionsHTML = `
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Type</th>
+                                <th>Montant</th>
+                                <th>Date</th>
+                                <th>Description</th>
+                                <th>Référence</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${transactions.map(transaction => `
+                                <tr>
+                                    <td>${transaction.type}</td>
+                                    <td>${transaction.montant.toLocaleString()} ${transaction.devise}</td>
+                                    <td>${new Date(transaction.date).toLocaleString()}</td>
+                                    <td>${transaction.description}</td>
+                                    <td>${transaction.reference}</td>
+                                    <td>
+                                        <button class="btn btn-danger" onclick="deleteTransaction(${transaction.id})">Supprimer</button>
+                                    </td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                `;
+                
+                document.getElementById('transactionsList').innerHTML = transactionsHTML;
+            } catch (error) {
+                console.error('Erreur lors du chargement des transactions:', error);
+                document.getElementById('transactionsList').innerHTML = '<div class="alert alert-danger">Erreur lors du chargement des transactions</div>';
+            }
+        }
+
+        // Chargement des utilisateurs
+        async function loadUtilisateurs() {
+            try {
+                const utilisateurs = await bambooDB.obtenirUtilisateurs();
+                
+                const utilisateursHTML = `
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Email</th>
+                                <th>Téléphone</th>
+                                <th>Rôle</th>
+                                <th>Statut</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${utilisateurs.map(utilisateur => `
+                                <tr>
+                                    <td>${utilisateur.prenom} ${utilisateur.nom}</td>
+                                    <td>${utilisateur.email}</td>
+                                    <td>${utilisateur.telephone}</td>
+                                    <td>${utilisateur.role}</td>
+                                    <td>${utilisateur.statut}</td>
+                                    <td>
+                                        <button class="btn" onclick="editUtilisateur(${utilisateur.id})">Modifier</button>
+                                        <button class="btn btn-danger" onclick="deleteUtilisateur(${utilisateur.id})">Supprimer</button>
+                                    </td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                `;
+                
+                document.getElementById('utilisateursList').innerHTML = utilisateursHTML;
+            } catch (error) {
+                console.error('Erreur lors du chargement des utilisateurs:', error);
+                document.getElementById('utilisateursList').innerHTML = '<div class="alert alert-danger">Erreur lors du chargement des utilisateurs</div>';
+            }
+        }
+
+        // Chargement des rapports
+        async function loadRapports() {
+            try {
+                const stats = await bambooDB.obtenirStatistiques();
+                
+                const rapportsHTML = `
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <h3>${stats.totalSolde.toLocaleString()} FCFA</h3>
+                            <p>Solde Total</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>${stats.totalTransactions}</h3>
+                            <p>Total Transactions</p>
+                        </div>
+                    </div>
+                    
+                    <h3>Transactions par Type</h3>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Type</th>
+                                <th>Nombre</th>
+                                <th>Montant Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${Object.entries(stats.transactionsParType).map(([type, count]) => `
+                                <tr>
+                                    <td>${type}</td>
+                                    <td>${count}</td>
+                                    <td>${(stats.montantParType[type] || 0).toLocaleString()} FCFA</td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                `;
+                
+                document.getElementById('rapportsContent').innerHTML = rapportsHTML;
+            } catch (error) {
+                console.error('Erreur lors du chargement des rapports:', error);
+                document.getElementById('rapportsContent').innerHTML = '<div class="alert alert-danger">Erreur lors du chargement des rapports</div>';
+            }
+        }
+
+        // Fonctions utilitaires
+        function showAlert(message, type) {
+            const alertDiv = document.createElement('div');
+            alertDiv.className = `alert alert-${type}`;
+            alertDiv.textContent = message;
+            
+            const container = document.querySelector('.admin-content');
+            container.insertBefore(alertDiv, container.firstChild);
+            
+            setTimeout(() => {
+                alertDiv.remove();
+            }, 5000);
+        }
+
+        // Fonctions d'administration
+        async function viderBase() {
+            if (confirm('Êtes-vous sûr de vouloir vider toute la base de données ?')) {
+                try {
+                    await bambooDB.viderBase();
+                    showAlert('Base de données vidée avec succès', 'success');
+                    loadDashboard();
+                } catch (error) {
+                    showAlert('Erreur lors du vidage de la base de données', 'danger');
+                }
+            }
+        }
+
+        async function initialiserDemo() {
+            try {
+                await bambooDB.initialiserDonneesDemo();
+                showAlert('Données de démonstration initialisées avec succès', 'success');
+                loadDashboard();
+            } catch (error) {
+                showAlert('Erreur lors de l\'initialisation des données de démonstration', 'danger');
+            }
+        }
+
+        // Fonctions de gestion des comptes
+        function showAddCompteForm() {
+            const formHTML = `
+                <div class="form-group">
+                    <h3>Ajouter un nouveau compte</h3>
+                    <form id="addCompteForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="numero">Numéro de compte</label>
+                                <input type="text" id="numero" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="type">Type de compte</label>
+                                <select id="type" required>
+                                    <option value="courant">Courant</option>
+                                    <option value="epargne">Épargne</option>
+                                    <option value="business">Business</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="solde">Solde initial</label>
+                                <input type="number" id="solde" value="0" min="0">
+                            </div>
+                            <div class="form-group">
+                                <label for="utilisateur">Utilisateur</label>
+                                <input type="text" id="utilisateur" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <input type="text" id="description">
+                        </div>
+                        <button type="submit" class="btn btn-success">Ajouter le compte</button>
+                        <button type="button" class="btn" onclick="loadComptes()">Annuler</button>
+                    </form>
+                </div>
+            `;
+            
+            document.getElementById('comptesList').innerHTML = formHTML;
+            
+            document.getElementById('addCompteForm').addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const compte = {
+                    numero: document.getElementById('numero').value,
+                    type: document.getElementById('type').value,
+                    solde: parseFloat(document.getElementById('solde').value),
+                    utilisateur: document.getElementById('utilisateur').value,
+                    description: document.getElementById('description').value
+                };
+                
+                try {
+                    await bambooDB.ajouterCompte(compte);
+                    showAlert('Compte ajouté avec succès', 'success');
+                    loadComptes();
+                } catch (error) {
+                    showAlert('Erreur lors de l\'ajout du compte', 'danger');
+                }
+            });
+        }
+
+        // Fonctions de gestion des transactions
+        function showAddTransactionForm() {
+            const formHTML = `
+                <div class="form-group">
+                    <h3>Ajouter une nouvelle transaction</h3>
+                    <form id="addTransactionForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="compteId">Compte</label>
+                                <select id="compteId" required>
+                                    <option value="">Sélectionner un compte</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="type">Type de transaction</label>
+                                <select id="type" required>
+                                    <option value="depot">Dépôt</option>
+                                    <option value="retrait">Retrait</option>
+                                    <option value="virement">Virement</option>
+                                    <option value="paiement">Paiement</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="montant">Montant</label>
+                                <input type="number" id="montant" required min="0" step="0.01">
+                            </div>
+                            <div class="form-group">
+                                <label for="categorie">Catégorie</label>
+                                <input type="text" id="categorie" value="general">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <input type="text" id="description" required>
+                        </div>
+                        <button type="submit" class="btn btn-success">Ajouter la transaction</button>
+                        <button type="button" class="btn" onclick="loadTransactions()">Annuler</button>
+                    </form>
+                </div>
+            `;
+            
+            document.getElementById('transactionsList').innerHTML = formHTML;
+            
+            // Charger les comptes dans le select
+            loadComptesForSelect();
+            
+            document.getElementById('addTransactionForm').addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const transaction = {
+                    compteId: parseInt(document.getElementById('compteId').value),
+                    type: document.getElementById('type').value,
+                    montant: parseFloat(document.getElementById('montant').value),
+                    description: document.getElementById('description').value,
+                    categorie: document.getElementById('categorie').value
+                };
+                
+                try {
+                    await bambooDB.ajouterTransaction(transaction);
+                    showAlert('Transaction ajoutée avec succès', 'success');
+                    loadTransactions();
+                } catch (error) {
+                    showAlert('Erreur lors de l\'ajout de la transaction', 'danger');
+                }
+            });
+        }
+
+        async function loadComptesForSelect() {
+            try {
+                const comptes = await bambooDB.obtenirComptes();
+                const select = document.getElementById('compteId');
+                
+                comptes.forEach(compte => {
+                    const option = document.createElement('option');
+                    option.value = compte.id;
+                    option.textContent = `${compte.numero} (${compte.type}) - ${compte.solde.toLocaleString()} FCFA`;
+                    select.appendChild(option);
+                });
+            } catch (error) {
+                console.error('Erreur lors du chargement des comptes:', error);
+            }
+        }
+
+        // Fonctions de gestion des utilisateurs
+        function showAddUtilisateurForm() {
+            const formHTML = `
+                <div class="form-group">
+                    <h3>Ajouter un nouvel utilisateur</h3>
+                    <form id="addUtilisateurForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="prenom">Prénom</label>
+                                <input type="text" id="prenom" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="nom">Nom</label>
+                                <input type="text" id="nom" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="telephone">Téléphone</label>
+                                <input type="text" id="telephone" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="role">Rôle</label>
+                                <select id="role" required>
+                                    <option value="client">Client</option>
+                                    <option value="admin">Administrateur</option>
+                                    <option value="manager">Manager</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="adresse">Adresse</label>
+                                <input type="text" id="adresse">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-success">Ajouter l'utilisateur</button>
+                        <button type="button" class="btn" onclick="loadUtilisateurs()">Annuler</button>
+                    </form>
+                </div>
+            `;
+            
+            document.getElementById('utilisateursList').innerHTML = formHTML;
+            
+            document.getElementById('addUtilisateurForm').addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const utilisateur = {
+                    prenom: document.getElementById('prenom').value,
+                    nom: document.getElementById('nom').value,
+                    email: document.getElementById('email').value,
+                    telephone: document.getElementById('telephone').value,
+                    role: document.getElementById('role').value,
+                    adresse: document.getElementById('adresse').value
+                };
+                
+                try {
+                    await bambooDB.ajouterUtilisateur(utilisateur);
+                    showAlert('Utilisateur ajouté avec succès', 'success');
+                    loadUtilisateurs();
+                } catch (error) {
+                    showAlert('Erreur lors de l\'ajout de l\'utilisateur', 'danger');
+                }
+            });
+        }
+
+        // Fonctions de suppression
+        async function deleteCompte(id) {
+            if (confirm('Êtes-vous sûr de vouloir supprimer ce compte ?')) {
+                // Implémentation de la suppression
+                showAlert('Fonction de suppression à implémenter', 'warning');
+            }
+        }
+
+        async function deleteTransaction(id) {
+            if (confirm('Êtes-vous sûr de vouloir supprimer cette transaction ?')) {
+                // Implémentation de la suppression
+                showAlert('Fonction de suppression à implémenter', 'warning');
+            }
+        }
+
+        async function deleteUtilisateur(id) {
+            if (confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?')) {
+                // Implémentation de la suppression
+                showAlert('Fonction de suppression à implémenter', 'warning');
+            }
+        }
+    </script>
+</body>
+</html>
