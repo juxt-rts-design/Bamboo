@@ -946,6 +946,208 @@
             background: #3a7d03;
         }
 
+        /* Section Transferts */
+        .transfers-list {
+            margin-top: 1rem;
+        }
+
+        .transfer-item {
+            display: flex;
+            align-items: center;
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .transfer-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .transfer-icon {
+            width: 50px;
+            height: 50px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            border: 1px solid #e9ecef;
+        }
+
+        .transfer-details {
+            flex: 1;
+        }
+
+        .transfer-details h4 {
+            color: #333;
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .transfer-details p {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .transfer-info {
+            color: #4A9E04;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .transfer-btn {
+            background: #4A9E04;
+            color: white;
+            border: none;
+            padding: 0.6rem 1.5rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .transfer-btn:hover {
+            background: #3a7d03;
+        }
+
+        /* Modal Western Union */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            animation: slideIn 0.3s ease;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .modal-header h3 {
+            color: #4A9E04;
+            margin: 0;
+            font-size: 1.3rem;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #666;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #4A9E04;
+            box-shadow: 0 0 0 2px rgba(74, 158, 4, 0.1);
+        }
+
+        .transfer-summary {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+
+        .transfer-summary h4 {
+            color: #4A9E04;
+            margin-bottom: 1rem;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .transfer-submit-btn {
+            width: 100%;
+            background: #4A9E04;
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .transfer-submit-btn:hover {
+            background: #3a7d03;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
         /* Section Avance sur salaire */
         .salary-info {
             display: grid;
@@ -2113,6 +2315,22 @@
                             <div class="transaction-amount negative">- 50 000 XAF</div>
                         </div>
                     </div>
+                    
+                    <!-- Services de transfert -->
+                    <h3 style="margin-top: 2rem; margin-bottom: 1rem; color: #4A9E04;">Services de Transfert</h3>
+                    <div class="transfers-list">
+                        <div class="transfer-item">
+                            <div class="transfer-icon">
+                                <img src="images/western.png" alt="Western Union" style="width: 40px; height: 40px; border-radius: 8px;">
+                            </div>
+                            <div class="transfer-details">
+                                <h4>Western Union</h4>
+                                <p>Transfert international rapide</p>
+                                <span class="transfer-info">Disponible 24h/24</span>
+                            </div>
+                            <button class="transfer-btn">Envoyer</button>
+                        </div>
+                    </div>
                 </div>
                 
                 <!-- Crédits Profil 1 -->
@@ -2245,6 +2463,22 @@
                         <div class="transaction-item"><div class="transaction-icon"><i class="fas fa-arrow-up text-success"></i></div><div class="transaction-details"><h4>Virement reçu</h4><p>De: CLIENT XYZ</p><span class="transaction-date">15 Jan 2024</span></div><div class="transaction-amount positive">+ 200 000 XAF</div></div>
                         <div class="transaction-item"><div class="transaction-icon"><i class="fas fa-arrow-down text-danger"></i></div><div class="transaction-details"><h4>Retrait GAB</h4><p>GAB Libreville Centre</p><span class="transaction-date">14 Jan 2024</span></div><div class="transaction-amount negative">- 75 000 XAF</div></div>
                     </div>
+                    
+                    <!-- Services de transfert -->
+                    <h3 style="margin-top: 2rem; margin-bottom: 1rem; color: #4A9E04;">Services de Transfert</h3>
+                    <div class="transfers-list">
+                        <div class="transfer-item">
+                            <div class="transfer-icon">
+                                <img src="images/western.png" alt="Western Union" style="width: 40px; height: 40px; border-radius: 8px;">
+                            </div>
+                            <div class="transfer-details">
+                                <h4>Western Union</h4>
+                                <p>Transfert international rapide</p>
+                                <span class="transfer-info">Disponible 24h/24</span>
+                            </div>
+                            <button class="transfer-btn">Envoyer</button>
+                        </div>
+                    </div>
                 </div>
                 
                 <!-- Crédits Profil 2 -->
@@ -2351,6 +2585,22 @@
                     <div class="transactions-list">
                         <div class="transaction-item"><div class="transaction-icon"><i class="fas fa-arrow-up text-success"></i></div><div class="transaction-details"><h4>Virement reçu</h4><p>De: CLIENT ENTREPRISE</p><span class="transaction-date">15 Jan 2024</span></div><div class="transaction-amount positive">+ 500 000 XAF</div></div>
                         <div class="transaction-item"><div class="transaction-icon"><i class="fas fa-arrow-down text-danger"></i></div><div class="transaction-details"><h4>Paiement fournisseur</h4><p>FOURNISSEUR ABC</p><span class="transaction-date">14 Jan 2024</span></div><div class="transaction-amount negative">- 200 000 XAF</div></div>
+                    </div>
+                    
+                    <!-- Services de transfert -->
+                    <h3 style="margin-top: 2rem; margin-bottom: 1rem; color: #4A9E04;">Services de Transfert</h3>
+                    <div class="transfers-list">
+                        <div class="transfer-item">
+                            <div class="transfer-icon">
+                                <img src="images/western.png" alt="Western Union" style="width: 40px; height: 40px; border-radius: 8px;">
+                            </div>
+                            <div class="transfer-details">
+                                <h4>Western Union</h4>
+                                <p>Transfert international rapide</p>
+                                <span class="transfer-info">Disponible 24h/24</span>
+                            </div>
+                            <button class="transfer-btn">Envoyer</button>
+                        </div>
                     </div>
                 </div>
                 
@@ -2469,6 +2719,22 @@
                                 <span class="transaction-date">10 Jan 2024</span>
                             </div>
                             <div class="transaction-amount positive">+ 500 000 XAF</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Services de transfert -->
+                    <h3 style="margin-top: 2rem; margin-bottom: 1rem; color: #4A9E04;">Services de Transfert</h3>
+                    <div class="transfers-list">
+                        <div class="transfer-item">
+                            <div class="transfer-icon">
+                                <img src="images/western.png" alt="Western Union" style="width: 40px; height: 40px; border-radius: 8px;">
+                            </div>
+                            <div class="transfer-details">
+                                <h4>Western Union</h4>
+                                <p>Transfert international rapide</p>
+                                <span class="transfer-info">Disponible 24h/24</span>
+                            </div>
+                            <button class="transfer-btn">Envoyer</button>
                         </div>
                     </div>
                 </div>
@@ -3000,6 +3266,79 @@
     </footer>
 
     <script src="database.js"></script>
+
+    <!-- Modal Western Union -->
+    <div id="westernUnionModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Transfert Western Union</h3>
+                <button class="modal-close" id="closeWesternModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="westernUnionForm">
+                    <div class="form-group">
+                        <label for="senderAccount">Compte à débiter</label>
+                        <select id="senderAccount" required>
+                            <option value="">Sélectionner un compte</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="recipientName">Nom du destinataire</label>
+                        <input type="text" id="recipientName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="recipientCountry">Pays de destination</label>
+                        <select id="recipientCountry" required>
+                            <option value="">Sélectionner un pays</option>
+                            <option value="FR">France</option>
+                            <option value="US">États-Unis</option>
+                            <option value="GB">Royaume-Uni</option>
+                            <option value="DE">Allemagne</option>
+                            <option value="IT">Italie</option>
+                            <option value="ES">Espagne</option>
+                            <option value="CA">Canada</option>
+                            <option value="BE">Belgique</option>
+                            <option value="CH">Suisse</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="transferAmount">Montant à envoyer (XAF)</label>
+                        <input type="number" id="transferAmount" min="1000" max="5000000" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="transferReason">Motif du transfert</label>
+                        <select id="transferReason" required>
+                            <option value="">Sélectionner un motif</option>
+                            <option value="family">Soutien familial</option>
+                            <option value="business">Affaires</option>
+                            <option value="education">Études</option>
+                            <option value="medical">Soins médicaux</option>
+                            <option value="other">Autre</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="senderPhone">Votre numéro de téléphone</label>
+                        <input type="tel" id="senderPhone" required>
+                    </div>
+                    <div class="transfer-summary">
+                        <h4>Résumé du transfert</h4>
+                        <div class="summary-item">
+                            <span>Frais de service:</span>
+                            <span id="serviceFee">0 XAF</span>
+                        </div>
+                        <div class="summary-item">
+                            <span>Montant total:</span>
+                            <span id="totalAmount">0 XAF</span>
+                        </div>
+                    </div>
+                    <button type="submit" class="transfer-submit-btn">Confirmer le transfert</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
 <script>// JavaScript BAMBOO - Version Complète avec Administration Avancée
     document.addEventListener('DOMContentLoaded', function() {
         console.log('🚀 Initialisation BAMBOO...');
@@ -3197,6 +3536,355 @@
         }
     
         // ============================================
+        // GESTION WESTERN UNION
+        // ============================================
+        const westernModal = document.getElementById('westernUnionModal');
+        const closeWesternModal = document.getElementById('closeWesternModal');
+        const westernForm = document.getElementById('westernUnionForm');
+        const transferAmount = document.getElementById('transferAmount');
+        const serviceFee = document.getElementById('serviceFee');
+        const totalAmount = document.getElementById('totalAmount');
+    
+        // Fonction pour charger les comptes disponibles
+        function loadAvailableAccounts() {
+            const accountSelect = document.getElementById('senderAccount');
+            if (!accountSelect) return;
+            
+            // Vider les options existantes sauf la première
+            accountSelect.innerHTML = '<option value="">Sélectionner un compte</option>';
+            
+            // Charger les comptes selon le profil actuel
+            let availableAccounts = [];
+            
+            if (currentProfil && profilsData[currentProfil]) {
+                availableAccounts = profilsData[currentProfil].accounts || [];
+            } else {
+                availableAccounts = profilsData['default'].accounts || [];
+            }
+            
+            // Ajouter les comptes au sélecteur
+            availableAccounts.forEach(account => {
+                const option = document.createElement('option');
+                option.value = account.number;
+                option.textContent = `${account.type} - ${account.number} (${account.balance})`;
+                accountSelect.appendChild(option);
+            });
+        }
+    
+        // Gestion des boutons Western Union
+        document.querySelectorAll('.transfer-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Charger les comptes disponibles
+                loadAvailableAccounts();
+                if (westernModal) {
+                    westernModal.classList.add('show');
+                    console.log('✅ Modal Western Union ouvert');
+                }
+            });
+        });
+    
+        // Fermeture du modal
+        if (closeWesternModal) {
+            closeWesternModal.addEventListener('click', function() {
+                if (westernModal) {
+                    westernModal.classList.remove('show');
+                }
+            });
+        }
+    
+        // Fermeture en cliquant sur l'overlay
+        if (westernModal) {
+            westernModal.addEventListener('click', function(e) {
+                if (e.target === westernModal) {
+                    westernModal.classList.remove('show');
+                }
+            });
+        }
+    
+        // Calcul automatique des frais selon le profil
+        if (transferAmount) {
+            transferAmount.addEventListener('input', function() {
+                const amount = parseFloat(this.value) || 0;
+                let fee = 0;
+                
+                // Calcul des frais selon le profil actuel
+                if (currentProfil === 'profil1') {
+                    // Profil entreprise - frais réduits
+                    if (amount <= 50000) fee = 1500;
+                    else if (amount <= 100000) fee = 3000;
+                    else if (amount <= 500000) fee = 5000;
+                    else if (amount <= 1000000) fee = 7500;
+                    else fee = 10000;
+                } else if (currentProfil === 'profil2') {
+                    // Profil particulier standard
+                    if (amount <= 50000) fee = 2500;
+                    else if (amount <= 100000) fee = 5000;
+                    else if (amount <= 500000) fee = 7500;
+                    else if (amount <= 1000000) fee = 10000;
+                    else fee = 15000;
+                } else if (currentProfil === 'profil3') {
+                    // Profil professionnel - frais moyens
+                    if (amount <= 50000) fee = 2000;
+                    else if (amount <= 100000) fee = 4000;
+                    else if (amount <= 500000) fee = 6000;
+                    else if (amount <= 1000000) fee = 8500;
+                    else fee = 12000;
+                } else {
+                    // Profil par défaut (client standard)
+                    if (amount <= 50000) fee = 2500;
+                    else if (amount <= 100000) fee = 5000;
+                    else if (amount <= 500000) fee = 7500;
+                    else if (amount <= 1000000) fee = 10000;
+                    else fee = 15000;
+                }
+                
+                const total = amount + fee;
+                
+                if (serviceFee) serviceFee.textContent = formatCurrency(fee);
+                if (totalAmount) totalAmount.textContent = formatCurrency(total);
+            });
+        }
+    
+        // Soumission du formulaire
+        if (westernForm) {
+            westernForm.addEventListener('submit', function(e) {
+                console.log('🧾 Soumission formulaire Western Union');
+                e.preventDefault();
+                
+                const formData = {
+                    senderAccount: document.getElementById('senderAccount').value,
+                    recipientName: document.getElementById('recipientName').value,
+                    recipientCountry: document.getElementById('recipientCountry').value,
+                    transferAmount: parseFloat(document.getElementById('transferAmount').value),
+                    transferReason: document.getElementById('transferReason').value,
+                    senderPhone: document.getElementById('senderPhone').value
+                };
+                
+                // Validation basique
+                if (!formData.senderAccount) {
+                    showNotification('Veuillez sélectionner un compte à débiter', 'error');
+                    return;
+                }
+                if (!formData.recipientName || !formData.recipientCountry || !formData.transferAmount || !formData.transferReason || !formData.senderPhone) {
+                    showNotification('Veuillez remplir tous les champs', 'error');
+                    return;
+                }
+                
+                if (formData.transferAmount < 1000) {
+                    showNotification('Le montant minimum est de 1 000 XAF', 'error');
+                    return;
+                }
+                
+                // Calcul des frais selon le profil actuel
+                let fee = 0;
+                if (currentProfil === 'profil1') {
+                    if (formData.transferAmount <= 50000) fee = 1500;
+                    else if (formData.transferAmount <= 100000) fee = 3000;
+                    else if (formData.transferAmount <= 500000) fee = 5000;
+                    else if (formData.transferAmount <= 1000000) fee = 7500;
+                    else fee = 10000;
+                } else if (currentProfil === 'profil2') {
+                    if (formData.transferAmount <= 50000) fee = 2500;
+                    else if (formData.transferAmount <= 100000) fee = 5000;
+                    else if (formData.transferAmount <= 500000) fee = 7500;
+                    else if (formData.transferAmount <= 1000000) fee = 10000;
+                    else fee = 15000;
+                } else if (currentProfil === 'profil3') {
+                    if (formData.transferAmount <= 50000) fee = 2000;
+                    else if (formData.transferAmount <= 100000) fee = 4000;
+                    else if (formData.transferAmount <= 500000) fee = 6000;
+                    else if (formData.transferAmount <= 1000000) fee = 8500;
+                    else fee = 12000;
+                } else {
+                    if (formData.transferAmount <= 50000) fee = 2500;
+                    else if (formData.transferAmount <= 100000) fee = 5000;
+                    else if (formData.transferAmount <= 500000) fee = 7500;
+                    else if (formData.transferAmount <= 1000000) fee = 10000;
+                    else fee = 15000;
+                }
+                
+                const totalTransferAmount = formData.transferAmount + fee;
+                const reference = generateReference();
+                const profilData = currentProfil ? profilsData[currentProfil] : profilsData['default'];
+                
+                // Vérifier que le compte a suffisamment de fonds
+                if (profilData && profilData.accounts) {
+                    const sourceAccount = profilData.accounts.find(acc => acc.number === formData.senderAccount);
+                    if (!sourceAccount) {
+                        showNotification('Compte sélectionné invalide', 'error');
+                        return;
+                    }
+                    const currentBalance = parseFloat(sourceAccount.balance.replace(/[^\d]/g, ''));
+                    if (currentBalance < totalTransferAmount) {
+                        showNotification('Solde insuffisant sur le compte sélectionné', 'error');
+                        return;
+                    }
+                }
+                
+                // Désactiver le bouton pendant le traitement
+                const submitBtn = westernForm.querySelector('button[type="submit"]');
+                if (submitBtn) {
+                    submitBtn.disabled = true;
+                    submitBtn.textContent = 'Traitement en cours...';
+                }
+                
+                // Notification de traitement
+                showNotification('🔄 Traitement du transfert Western Union en cours...', 'success');
+                
+                // Simuler le traitement (3 secondes)
+                setTimeout(() => {
+                    // Créer la transaction Western Union
+                    const westernTransaction = {
+                        id: Date.now(),
+                        type: 'western_union',
+                        description: `Transfert Western Union - ${formData.recipientName} (${formData.recipientCountry})`,
+                        amount: -totalTransferAmount, // Débit du compte
+                        date: new Date().toISOString(),
+                        reference: reference,
+                        recipient: formData.recipientName,
+                        country: formData.recipientCountry,
+                        reason: formData.transferReason,
+                        fee: fee,
+                        account: formData.senderAccount,
+                        profil: currentProfil || 'default'
+                    };
+                    
+                    // Sauvegarder dans localStorage pour l'historique du profil
+                    const historyKey = `history_${currentProfil || 'default'}`;
+                    let history = JSON.parse(localStorage.getItem(historyKey) || '[]');
+                    history.unshift(westernTransaction);
+                    
+                    // Garder seulement les 50 dernières transactions
+                    if (history.length > 50) {
+                        history = history.slice(0, 50);
+                    }
+                    
+                    localStorage.setItem(historyKey, JSON.stringify(history));
+                    
+                    // Mettre à jour le solde du compte
+                    if (profilData && profilData.accounts) {
+                        const account = profilData.accounts.find(acc => acc.number === formData.senderAccount);
+                        if (account) {
+                            const currentBalance = parseFloat(account.balance.replace(/[^\d]/g, ''));
+                            const newBalance = currentBalance - totalTransferAmount;
+                            account.balance = formatCurrency(newBalance);
+                            
+                            // Sauvegarder les données mises à jour
+                            localStorage.setItem('profilsData', JSON.stringify(profilsData));
+                        }
+                    }
+                    
+                    // Fermer le modal immédiatement
+                    if (westernModal) {
+                        westernModal.classList.remove('show');
+                    }
+                    
+                    // Notification de succès
+                    showNotification(`✅ Transfert Western Union effectué avec succès ! Référence: ${reference}`, 'success');
+                    
+                    // Réactiver le bouton et réinitialiser
+                    if (submitBtn) {
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = 'Confirmer le transfert';
+                    }
+                    
+                    // Réinitialiser le formulaire
+                    westernForm.reset();
+                    if (serviceFee) serviceFee.textContent = '0 XAF';
+                    if (totalAmount) totalAmount.textContent = '0 XAF';
+                    
+                    // Actualiser l'historique si on est dans la section historique
+                    if (document.getElementById('historyContent') && document.getElementById('historyContent').classList.contains('active')) {
+                        // Recharger l'historique
+                        loadHistory();
+                    }
+                    
+                    // Actualiser l'historique du profil si on est dans un profil
+                    if (currentProfil) {
+                        const historyContentId = currentProfil + 'HistoryContent';
+                        if (document.getElementById(historyContentId) && document.getElementById(historyContentId).classList.contains('active')) {
+                            loadProfilHistory(currentProfil);
+                        }
+                    }
+                }, 2000);
+            });
+        }
+    
+        // ============================================
+        // GESTION DE L'HISTORIQUE
+        // ============================================
+        function loadHistory() {
+            const historyList = document.querySelector('#historyContent .history-list');
+            if (!historyList) return;
+            
+            // Charger l'historique depuis localStorage
+            const history = JSON.parse(localStorage.getItem('history_default') || '[]');
+            
+            if (history.length === 0) {
+                historyList.innerHTML = '<p style="text-align: center; color: #666; padding: 2rem;">Aucune transaction trouvée</p>';
+                return;
+            }
+            
+            historyList.innerHTML = history.map(transaction => {
+                const date = new Date(transaction.date);
+                const isWesternUnion = transaction.type === 'western_union';
+                
+                return `
+                    <div class="history-item">
+                        <div class="history-date">
+                            <span class="day">${date.getDate()}</span>
+                            <span class="month">${date.toLocaleDateString('fr-FR', { month: 'short' })}</span>
+                        </div>
+                        <div class="history-details">
+                            <h4>${isWesternUnion ? 'Transfert Western Union' : transaction.description}</h4>
+                            <p>${isWesternUnion ? `À: ${transaction.recipient} (${transaction.country})` : 'Transaction bancaire'}</p>
+                            <span class="history-time">${date.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}</span>
+                        </div>
+                        <div class="history-amount ${transaction.amount >= 0 ? 'positive' : 'negative'}">
+                            ${transaction.amount >= 0 ? '+' : ''}${formatCurrency(Math.abs(transaction.amount))}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+    
+        function loadProfilHistory(profilId) {
+            const historyContentId = profilId + 'HistoryContent';
+            const historyList = document.querySelector(`#${historyContentId} .history-list`);
+            if (!historyList) return;
+            
+            // Charger l'historique du profil depuis localStorage
+            const history = JSON.parse(localStorage.getItem(`history_${profilId}`) || '[]');
+            
+            if (history.length === 0) {
+                historyList.innerHTML = '<p style="text-align: center; color: #666; padding: 2rem;">Aucune transaction trouvée</p>';
+                return;
+            }
+            
+            historyList.innerHTML = history.map(transaction => {
+                const date = new Date(transaction.date);
+                const isWesternUnion = transaction.type === 'western_union';
+                
+                return `
+                    <div class="history-item">
+                        <div class="history-date">
+                            <span class="day">${date.getDate()}</span>
+                            <span class="month">${date.toLocaleDateString('fr-FR', { month: 'short' })}</span>
+                        </div>
+                        <div class="history-details">
+                            <h4>${isWesternUnion ? 'Transfert Western Union' : transaction.description}</h4>
+                            <p>${isWesternUnion ? `À: ${transaction.recipient} (${transaction.country})` : 'Transaction bancaire'}</p>
+                            <span class="history-time">${date.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}</span>
+                        </div>
+                        <div class="history-amount ${transaction.amount >= 0 ? 'positive' : 'negative'}">
+                            ${transaction.amount >= 0 ? '+' : ''}${formatCurrency(Math.abs(transaction.amount))}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+    
+        // ============================================
         // 3. GESTION DU MENU
         // ============================================
         const menuBtn = document.getElementById('menuBtn');
@@ -3284,6 +3972,11 @@
                             targetPanel.classList.add('active');
                             console.log('✅ Panneau profil affiché:', targetId);
                             
+                            // Charger l'historique du profil si on accède à la section historique
+                            if (section === 'history') {
+                                loadProfilHistory(currentProfil);
+                            }
+                            
                             // Conserver le solde du profil même quand on change de section
                             updateProfilBalance(currentProfil);
                             
@@ -3339,6 +4032,11 @@
                 if (targetPanel) {
                     targetPanel.classList.add('active');
                     console.log('✅ Panneau affiché:', targetId);
+                    
+                    // Charger l'historique si on accède à la section historique
+                    if (targetId === 'historyContent') {
+                        loadHistory();
+                    }
                     
                     // Actualiser stats si admin
                     if (targetId === 'adminContent') {
@@ -3474,6 +4172,10 @@
         
         allButtons.forEach(function(button, index) {
             button.onclick = function(e) {
+                if (this.classList.contains('transfer-submit-btn') || this.type === 'submit') {
+                    return;
+                }
+                
                 e.preventDefault();
                 
                 const buttonText = this.textContent.trim();
